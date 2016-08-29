@@ -5,9 +5,10 @@
    Description: Basic parent class for trainers and pokemon alike
 */
 
-public class Entity{
+public abstract class Entity{
     private String name;
     private int hp;
+    private int maxHp;
 
     /* Entity()
        Basic constructor
@@ -41,5 +42,12 @@ public class Entity{
     public int gainHp(int heal){
         hp = hp + heal;
         return hp;
+    }
+    
+    /* incMaxHp()
+     * increases maximum hit points
+     */
+    public void incMaxHp(){
+        maxHp += 50;
     }
 }
