@@ -13,15 +13,54 @@ public class Opponent extends Trainer{
     }
 
     public void attackSpeech(){
-        System.out.println(getName() ": My pokemon is stronger " + getCurrentPokemon());
+        switch(type){
+            case 0:
+                System.out.println(getName() + ": You're going to lose");
+            case 1:
+                System.out.println(getName() + ": I'm not going easy on you!" );
+            case 2:
+                System.out.println(getName() + "You can't stop Team Rocket!");
+            case 3:
+                System.out.println(getName() + "I think I'm winning");
+            case 4:
+                System.out.println(getName() + ": My " + getCurrentPokemon() + " is strong!");
+            default 5:
+                System.out.println(getName() + ": My turn!");
+            break;
     }
 
     public void winSpeech(){
-        System.out.println(getName() ": Just as I thought");
+        switch(type){
+            case 0:
+                System.out.println(getName() + ": Grass type pokemon are best");
+            case 1:
+                System.out.println(getName() + ": Better luck next time!" );
+            case 2:
+                System.out.println(getName() + "That'll teach you");
+            case 3:
+                System.out.println(getName() + "That was easy");
+            case 4:
+                System.out.println(getName() + "You're pokemon are weak");
+            default 5:
+                System.out.println(getName() + ": My turn!");
+            break;
     }
 
     public void lossSpeech(){
-        System.out.println(getName() ": How did you..");
+        switch(type){
+            case 0:
+                System.out.println(getName() + ": Well, you can't win them all");
+            case 1:
+                System.out.println(getName() + ": Good job!" );
+            case 2:
+                System.out.println(getName() + "You may have won this time. Buy you can't beat us all");
+            case 3:
+                System.out.println(getName() + "Don't know where I wrong there...");
+            case 4:
+                System.out.println(getName() + "I'm too easy on my pokemon");
+            default 5:
+                System.out.println(getName() + ": My turn!");
+            break;
     }
 
     public int chooseStyle(){
