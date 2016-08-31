@@ -7,16 +7,19 @@
 
 import java.lang.Math;
 
-public class Pikachu extends Pokemon{
+public class Pikachu extends Pokemon implements Electric{
     public Pikachu(){
         super("Pikachu", 1);
     }
 
     @Override
+    public int getType(){
+        return type;
+    }
+
+    @Override
     public void displaySpecialMenu(){
-        System.out.println("\t1. Thunder Shock");
-        System.out.println("\t2. Thunder Bolt" );
-        System.out.println("\t3. Thunder Punch");
+        System.out.println(typeMenu);
     }
 
     /* specialFight()
@@ -26,20 +29,17 @@ public class Pikachu extends Pokemon{
 
     @Override
     public int specialFight(int move){
-        //switch case to handle chose basic attack
+        //switch case to handle chosen basic attack
         int hit = 0;
        switch(move){
             case 1:
                 hit = thunderShock();
-                System.out.format("%s used Thunder Shock", getName());
                 break;
             case 2:
-                hit = thunderBolt();
-                System.out.format("%s used Thunder Bolt", getName());
+                hit = thunderbolt();
                 break;
             case 3:
                 hit = thunderPunch();
-                System.out.format("%s used Thunder Punch", getName());
                 break;
         }
         return hit;
@@ -50,15 +50,21 @@ public class Pikachu extends Pokemon{
        by the pokemon's level
     */
     public int thunderShock(){
-        return (int)(25 * Math.random()) + 3 * getLevel();
+        int hit = (int)(25 * Math.random()) + 3 * getLevel();
+        System.out.format("%s used Thunder Shock", getName());
+        return hit;
     }
 
-    public int thunderBolt(){
-        return (int)(25 * Math.random()) + 3 * getLevel();
+    public int thunderbolt(){
+        int hit = (int)(25 * Math.random()) + 3 * getLevel();
+        System.out.format("%s used Thunderbolt", getName());
+        return hit;
     }
 
     public int thunderPunch(){
-        return (int)(25 * Math.random()) + 3 * getLevel();
+        int hit = (int)(25 * Math.random()) + 3 * getLevel();
+        System.out.format("%s used Thunder Punch", getName());
+        return hit;
     }
 
 }

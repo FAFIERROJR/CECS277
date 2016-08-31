@@ -5,6 +5,8 @@
    Description: daughter of Entity; simulates a pokemon trainer
 */
 
+import java.util.*;
+
 public abstract class Trainer extends Entity{
     private ArrayList<Pokemon> pokemon;
     int currentPokemon;
@@ -28,12 +30,12 @@ public abstract class Trainer extends Entity{
     public abstract int chooseMove(int style);
    
     public void displayCurrentPokemon(){
-        System.out.format("%s LVL: %d HP: %d\n", pokemon[currentPokemon].getName(),
-            pokemon[currentPokemon].getLevel(), pokemon[currentPokemon].getHp());
+        System.out.format("%s LVL: %d HP: %d\n", pokemon.get(currentPokemon).getName(),
+            pokemon.get(currentPokemon).getLevel(), pokemon.get(currentPokemon).getHp());
     }
     
     public Pokemon getCurrentPokemon(){
-        return pokemon[currentPokemon];
+        return pokemon.get(currentPokemon);
     }
     
     public void addPokemon(Pokemon p){
@@ -41,36 +43,47 @@ public abstract class Trainer extends Entity{
     }
 
     public void listPokemon(){
-        for( i = 0; i < pokemon.length; i++){
-            System.out.format("%s LVL: %d HP: %d\n", pokemon[currentPokemon].getName(),
-            pokemon[currentPokemon].getLevel(), pokemon[currentPokemon].getHp());
+        for(int i = 0; i < pokemon.size(); i++){
+            System.out.format("%s LVL: %d HP: %d\n", pokemon.get(currentPokemon).getName(),
+            pokemon.get(currentPokemon).getLevel(), pokemon.get(currentPokemon).getHp());
         }
     }
     
     public void healAllPokemon(){
-        for( i = 0; i < pokemon.length; i++){
-            pokemon[currentPokemon].gainHp(1000000);
+        for(int i = 0; i < pokemon.size(); i++){
+            pokemon.get(currentPokemon).gainHp(1000000);
         }
     }
     
     public Pokemon setCurrentPokemon(int cur){
         currentPokemon = cur;
+        return pokemon.get(currentPokemon);
     }
 
     
     public int getNextCurPokemon(){
         int i = 0;
-        int j = cur;
-          for(i = 0; i < pokemon.length; i++){
-              if(j = pokemon.length) {
-                  j = 0;
-              }
-              if(pokemon[j].getHp() > 0){
-                  return pokemon;
-          }
+        int j = currentPokemon;
+            for(i = 0; i < pokemon.size(); i++){
+                if(j == pokemon.size()) {
+                    j = 0;
+                }
+                if(pokemon.get(j).getHp() > 0){
+                    return j;
+                }
+            }
         return -1;
     }
     
     public int battle(){
+        int style;
+        int move;
+        int hit;
+
+        style = chooseStyle();
+        move = chooseMove(style);
+
+        hit = getCurrentPokemon().fight(style, move);
+        return hit;
     }
 }

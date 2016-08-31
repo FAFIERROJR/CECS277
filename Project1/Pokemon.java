@@ -2,7 +2,7 @@
    Date: 8/22/2016
    Program: Project 1
    File: Pokemon.java
-   Description: daughter of Entity; simulates a pokemon
+   Description: daughter of Entity; abstract class for pokemon
 */
 
 import java.lang.Math;
@@ -24,7 +24,7 @@ public abstract class Pokemon extends Entity{
         nextLevelExp = 1000;
     }
 
-    public abstract int gettype();
+    public abstract int getType();
 
     public abstract int specialFight(int move);
 
@@ -98,6 +98,17 @@ public abstract class Pokemon extends Entity{
         return hit;
     }
 
+    public int fight(int style, int move){
+        int hit = 0;
+        if(style == 1){
+            hit = basicFight(move);
+        }
+        if(style == 2){
+            hit = specialFight(move);
+        }
+        System.out.println(getName() + " hit for " + hit + " points");
+        return hit;
+    }
     
     /* The functions below are the basic attacks common to all Pokemon
        Each attack does random damage which is multiplied

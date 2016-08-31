@@ -7,49 +7,55 @@
 
 import java.lang.Math;
 
-public class Charmander extends Pokemon{
+public class Charmander extends Pokemon implements Fire{
     public Charmander(){
         super("Charmander", 1);
     }
 
+    @Override
+    public int getType(){
+        return type;
+    }
 
     @Override
     public void displaySpecialMenu(){
-        System.out.println("\t1. Ember");
-        System.out.println("\t2. Fire Blast" );
-        System.out.println("\t3. Fire Punch");
+        System.out.println(typeMenu);
     }
 
     @Override
     public int specialFight(int move){
-        //switch case to handle chose basic attack
+        //switch case to handle chosen basic attack
         int hit = 0;
         switch(move){
             case 1:
                 hit = ember();
-                System.out.format("%s used Ember", getName());
                 break;
             case 2:
                 hit = fireBlast();
-                System.out.format("%s used Fire Blast", getName());
                 break;
             case 3:
                 hit = firePunch();
-                System.out.format("%s used Fire Punch", getName());
                 break;
         }
         return hit;
     }
 
     public int ember(){
-        return (int)(25 * Math.random()) + 3 * getLevel();
+        int hit = (int)(25 * Math.random()) + 3 * getLevel();
+        System.out.format("%s used Ember", getName());
+        return hit;
+        
     }
 
     public int fireBlast(){
-        return (int)(25 * Math.random()) + 3 * getLevel();
+        int hit = (int)(25 * Math.random()) + 3 * getLevel();
+        System.out.format("%s used Fire Blast", getName());
+        return hit;
     }
 
     public int firePunch(){
-        return (int)(25 * Math.random()) + 3 * getLevel();
+        int hit =  (int)(25 * Math.random()) + 3 * getLevel();
+        System.out.format("%s used Fire Punch", getName());
+        return hit;
     }
 }
