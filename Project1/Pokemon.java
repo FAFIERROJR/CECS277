@@ -7,9 +7,10 @@
 
 import java.lang.Math;
 
-public class Pokemon extends Entity{
+public abstract class Pokemon extends Entity{
     private int level;
     private int exp;
+    private int nextLevelExp;
 
 
     /* Pokemon()
@@ -20,7 +21,14 @@ public class Pokemon extends Entity{
         super(name, 100);
         this.level = level;
         exp = 0;
+        nextLevelExp = 1000;
     }
+
+    public abstract int gettype();
+
+    public abstract int specialFight(int move);
+
+    public abstract void displaySpecialMenu();
 
     public int getLevel(){
         return level;
@@ -34,8 +42,20 @@ public class Pokemon extends Entity{
        Increases exp by amount gained from battle
     */
 
+
+    public void displayPokemon(){
+        System.out.format("\n%s HP: %d LVL: %d\n", getName(), getHp(), level);
+    }
+
     public int gainExp(int exp){
         this.exp = this.exp + exp;
+
+        if(this.exp >= nextLevelExp){
+            level += 1;
+            System.out.println("\n%s leveled up!\n");
+            this.exp = 0;
+        }
+
         return this.exp;
     }
 
@@ -78,19 +98,6 @@ public class Pokemon extends Entity{
         return hit;
     }
 
-    /* displaySpecialMenu()
-       displays menu for Special attacks
-    */
-    public void displaySpecialMenu(){
-    }
-
-    /* specialFight()
-       determines which special attack was chosen and
-       executes it. Unique to each pokemon. So just a stub here.
-    */
-    public int specialFight(int move){
-        return 0;
-    }
     
     /* The functions below are the basic attacks common to all Pokemon
        Each attack does random damage which is multiplied
