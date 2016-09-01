@@ -5,10 +5,20 @@ public class Player extends Trainer{
 
     public Player(String name, int hp){
         super(name, hp);
+        potions = 5;
+        money = 500;
+        pokeballs = 10;
     }
 
     public void usePotion(){
-        getCurrentPokemon().gainHp(50);
+        if(potions > 0){
+            getCurrentPokemon().gainHp(50);
+            System.out.format("%s gained 50 HP\n", getCurrentPokemon().getName());
+            potions--;
+        }
+        else{
+            System.out.println("You're out of potions!");
+        }    
     }
     
     public int getNumPotionsLeft(){
@@ -55,6 +65,7 @@ public class Player extends Trainer{
         return style;
     }
 
+    @Override
     public int chooseMove(int style){
         int move;
         switch(style){

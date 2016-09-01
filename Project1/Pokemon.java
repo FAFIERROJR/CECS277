@@ -106,7 +106,6 @@ public abstract class Pokemon extends Entity{
         if(style == 2){
             hit = specialFight(move);
         }
-        System.out.println(getName() + " hit for " + hit + " points");
         return hit;
     }
     

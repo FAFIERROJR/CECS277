@@ -33,6 +33,7 @@ public class PokemonMaker{
                 break;
         }
         
+        System.out.println("\nIt's a wild " + pokemon.getName() + "!\n");   
         return pokemon;
     }
 
@@ -82,19 +83,22 @@ public class PokemonMaker{
         return pokemon;
     }
 
-    public static Pokemon makePokemonStart(int start){
+    public static Pokemon makeStartPokemon(int start){
         Pokemon pokemon;
         switch(start){
             case 1:
-                    pokemon = new Charmander();
+                pokemon = new Charmander();
+                break;
             case 2:
-                    pokemon = new Squirtle();
+                pokemon = new Squirtle();
+                break;
 
             case 3:
-                    pokemon = new Bulbasaur();
+                pokemon = new Bulbasaur();
                 break;
             case 4:
-                    pokemon = new Pikachu();
+                pokemon = new Pikachu();
+                break;
             default:
                 pokemon = new Pikachu();
                 break;

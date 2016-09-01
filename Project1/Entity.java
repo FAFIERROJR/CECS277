@@ -16,7 +16,8 @@ public abstract class Entity{
     */
     public Entity(String name, int hp){
         this.name = name;
-       this.hp = hp;
+        this.hp = hp;
+        maxHp = hp;
     }
     
 
@@ -33,6 +34,9 @@ public abstract class Entity{
     */
     public int loseHp(int hit){
         hp = hp - hit;
+        if(hp < 0){
+            hp = 0;
+        }
         return hp;
     }
 
@@ -41,6 +45,9 @@ public abstract class Entity{
     */
     public int gainHp(int heal){
         hp = hp + heal;
+        if(hp > maxHp){
+            hp = maxHp;
+        }
         return hp;
     }
     

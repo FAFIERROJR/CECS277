@@ -24,9 +24,10 @@ public class Opponent extends Trainer{
                 System.out.println(getName() + "I think I'm winning");
             case 4:
                 System.out.println(getName() + ": My " + getCurrentPokemon() + " is strong!");
-            default 5:
+            default:
                 System.out.println(getName() + ": My turn!");
             break;
+        }
     }
 
     public void winSpeech(){
@@ -41,9 +42,10 @@ public class Opponent extends Trainer{
                 System.out.println(getName() + "That was easy");
             case 4:
                 System.out.println(getName() + "You're pokemon are weak");
-            default 5:
+            default:
                 System.out.println(getName() + ": My turn!");
             break;
+        }
     }
 
     public void lossSpeech(){
@@ -58,10 +60,12 @@ public class Opponent extends Trainer{
                 System.out.println(getName() + "Don't know where I wrong there...");
             case 4:
                 System.out.println(getName() + "I'm too easy on my pokemon");
-            default 5:
+            default:
                 System.out.println(getName() + ": My turn!");
             break;
+        }
     }
+
 
     public int chooseStyle(){
         return (int)Math.round(Math.random() + 1);

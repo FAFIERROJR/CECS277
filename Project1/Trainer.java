@@ -17,6 +17,7 @@ public abstract class Trainer extends Entity{
      */
     public Trainer(String name, int hp){
         super(name,hp);
+        pokemon = new ArrayList<Pokemon>();
     }
     
     public abstract void attackSpeech();
@@ -44,7 +45,7 @@ public abstract class Trainer extends Entity{
 
     public void listPokemon(){
         for(int i = 0; i < pokemon.size(); i++){
-            System.out.format("%s LVL: %d HP: %d\n", pokemon.get(currentPokemon).getName(),
+            System.out.format( i + 1 + ". %s LVL: %d HP: %d\n", pokemon.get(currentPokemon).getName(),
             pokemon.get(currentPokemon).getLevel(), pokemon.get(currentPokemon).getHp());
         }
     }
