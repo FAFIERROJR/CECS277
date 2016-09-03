@@ -25,15 +25,12 @@ public class Zapdos extends Pokemon implements Electric{
        switch(move){
             case 1:
                 hit = thunderShock();
-                System.out.format("%s used Thunder Shock", getName());
                 break;
             case 2:
                 hit = thunderbolt();
-                System.out.format("%s used Thunder Bolt", getName());
                 break;
             case 3:
                 hit = thunderPunch();
-                System.out.format("%s used Thunder Punch", getName());
                 break;
         }
         return hit;

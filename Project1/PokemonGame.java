@@ -40,14 +40,16 @@ public class PokemonGame{
                     player.usePotion();
                     break;
                 case 3:
+                    switchPokemon(player);
+                case 4:
                     run = true;
                     break;
-                case 4:
+                case 5:
                     displayShopMenu();
                     int item = CheckInput.checkInt();
-                case 5:
-                    System.out.println("That pokemon belongs to " + opp.getName());
                 case 6:
+                    System.out.println("That pokemon belongs to " + opp.getName());
+                case 7:
                     System.out.println("Thanks for playing!");
                     System.exit(0);
                     break;
@@ -60,11 +62,14 @@ public class PokemonGame{
                 }
                 chooseNewPokemon(player);
             }
-            if(opp.getHp() <= 0){
+            if(opp.getCurrentPokemon().getHp() <= 0){
                 if(opp.getNextCurPokemon() ==-1){
                     pvpWin(player, opp);
+                    run = true;
                 }
-                run = true;
+                else{
+                    opp.setCurrentPokemon(opp.getNextCurPokemon());
+                }
             }
         }
     }
@@ -81,30 +86,37 @@ public class PokemonGame{
                     PokemonBattles.wildPokemonBattle(player, opp);
                     break;
                 case 2:
-                        player.usePotion();
-
+                    player.usePotion();
                     break;
                 case 3:
-                    run = true;
-                    break;
+                    switchPokemon(player);
                 case 4:
-                        
+                    run = true;
+                    break;       
                 case 6:
+                    if(catchPokemon(player,opp)){
+                        System.out.println("You've caught a " + opp.getName() + "!");
+                        run = true;
+                    }
+                    else{
+                        System.out.println("It just escaped capture!");
+                    }
+                    break;
+                case 7:
                     System.out.println("Thanks for playing!");
                     System.exit(0);
                     break;
             }
 
             if(player.getCurrentPokemon().getHp() <= 0){
-                System.out.format("%s fainted. Game Over. Thanks for Playing!\n", player.getCurrentPokemon().getName());
-                System.exit(0);
+                if(player.getNextCurPokemon() == -1){
+                    System.out.println("All of your pokemon have fainted. Game Over. Thanks for Playing!\n");
+                    System.exit(0);
+                }
+                chooseNewPokemon(player);
             }
             if(opp.getHp() <= 0){
-                int xpGain = 100 + (int)(50 * Math.random());
-                int money = 100 + (int)(50 * Math.random() * 2);
-                System.out.format("%s fainted. You win. %s gained %d EXP\n", opp.getName(),
-                player.getCurrentPokemon().getName(), xpGain);
-                player.getCurrentPokemon().gainExp(xpGain);
+                pveWin(player, opp);
                 run = true;
             }
         }
@@ -127,10 +139,11 @@ public class PokemonGame{
     private static void displayMainBattleMenu(){
         System.out.println("\t1. Fight");
         System.out.println("\t2. Heal" );
-        System.out.println("\t3. Run");
-        System.out.println("\t4. Shop");
-        System.out.println("\t5. Catch");
-        System.out.println("\t6. Exit");
+        System.out.println("\t3. Switch");
+        System.out.println("\t4. Run");
+        System.out.println("\t5. Shop");
+        System.out.println("\t6. Catch");
+        System.out.println("\t7. Exit");
     }
 
 
@@ -161,17 +174,26 @@ public class PokemonGame{
     public static void pvpWin(Player player, Opponent opp){
         int xpGain = 100 + (int)(50 * Math.random());
         int money = (100 + (int)(50 * Math.random() * 2)) * -1;
-        System.out.format("%s fainted. You win. %s gained %d EXP\n", opp.getCurrentPokemon().getName(),
-        player.getCurrentPokemon().getName(), xpGain);
+        System.out.format("%s fainted. You win %d Money. %s gained %d EXP\n", opp.getCurrentPokemon().getName(),
+        money * -1, player.getCurrentPokemon().getName(), xpGain);
         player.getCurrentPokemon().gainExp(xpGain);
         player.spendMoney(money);
     }
+
+    public static void pveWin(Player player, Pokemon opp){
+        int xpGain = 100 + (int)(50 * Math.random());
+        System.out.format("%s fainted. You win. %s gained %d EXP\n", opp.getName(),
+        player.getCurrentPokemon().getName(), xpGain);
+        player.getCurrentPokemon().gainExp(xpGain);
+    }
+
+    
 
     public static void displayShopMenu(){
         System.out.println("1. Potion\t250 munny\n2. Pokeball\t 100 munny");
     }
     
-    public void int shop(Player player, int item){
+    public void shop(Player player, int item){
         if (item == 1){
             player.buyPotion();
             player.spendMoney(250);
@@ -181,4 +203,27 @@ public class PokemonGame{
             player.spendMoney(100);
         }
     }
+
+    public static boolean catchPokemon(Player player, Pokemon wildPoke){
+        double chanceToCatch;
+    
+        chanceToCatch = Math.random() + (1/wildPoke.getHp());
+    
+        if(chanceToCatch >= 0.5){
+            player.addPokemon(wildPoke);
+            return true;
+        }
+        else return false;
+    }
+
+    public static void switchPokemon(Player player){
+        System.out.println("Choose a pokemon");
+        int choice;
+
+        player.listPokemon();
+        choice = CheckInput.checkInt();
+        
+        player.setCurrentPokemon(choice);
+    }
+    
 }
