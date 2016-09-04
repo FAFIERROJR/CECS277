@@ -39,7 +39,7 @@ public class OpponentMaker{
                 break;
         }
         
-        System.out.println("\nIt's " + name + "!\n");
+        System.out.println("\nIt's " + name + "!");
 
         opponent = new Opponent(name, randomHealth, randomType);
         opponent.addPokemon(pokemon);

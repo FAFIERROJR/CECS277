@@ -1,8 +1,9 @@
-/* Name: Francisco Fierro
-   Date: 8/22/2016
-   Program: Project 1
-   File: Pokemon.java
-   Description: daughter of Entity; abstract class for pokemon
+/**
+  *@author Francisco Fierro
+  *Date: 8/22/2016
+  *Program: Project 1
+  *File: Pokemon.java
+  *Description: daughter of Entity; abstract class for pokemon
 */
 
 import java.lang.Math;

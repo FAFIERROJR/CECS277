@@ -1,8 +1,8 @@
-/* Name: Francisco Fierro
-   Date: 8/22/2016
-   Program: Project 1
-   File: Trainer.java
-   Description: daughter of Entity; simulates a pokemon trainer
+/** @author Francisco Fierro
+   * Date: 8/22/2016
+   * Program: Project 1
+   * File: Trainer.java
+   * Description: daughter of Entity; simulates a pokemon trainer
 */
 
 import java.util.*;
@@ -45,8 +45,8 @@ public abstract class Trainer extends Entity{
 
     public void listPokemon(){
         for(int i = 0; i < pokemon.size(); i++){
-            System.out.format( i + 1 + ". %s LVL: %d HP: %d\n", pokemon.get(currentPokemon).getName(),
-            pokemon.get(currentPokemon).getLevel(), pokemon.get(currentPokemon).getHp());
+            System.out.format( i + 1 + ". %s LVL: %d HP: %d\n", pokemon.get(i).getName(),
+            pokemon.get(i).getLevel(), pokemon.get(i).getHp());
         }
     }
     

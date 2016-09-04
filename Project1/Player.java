@@ -46,7 +46,7 @@ public class Player extends Trainer{
     }
 
     public void attackSpeech(){
-        System.out.println("YOU: Get him " + getCurrentPokemon());
+        System.out.println("YOU: I choose you, " + getCurrentPokemon().getName() + "!");
     }
 
     public void winSpeech(){

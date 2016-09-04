@@ -1,26 +1,30 @@
-/* Name: Francisco Fierro
-   Date: 8/22/2016
-   Program: Project 1
-   File: Entity.java
-   Description: Basic parent class for trainers and pokemon alike
-*/
-
+/**
+ * Entity class
+ * defines characteristics common to player, opponent and
+ * Pokemon
+ *
+ */
 public abstract class Entity{
     private String name;
     private int hp;
     private int maxHp;
 
-    /* Entity()
-       Basic constructor
-       Sets name and hp to provided values
-    */
+    /**
+     * Entity()
+     * Basic constructor
+     * Sets name and hp to provided values
+     */
     public Entity(String name, int hp){
         this.name = name;
         this.hp = hp;
         maxHp = hp;
     }
     
-
+    /**
+     * getName()
+     * returns name of entity
+     *
+     */
     public String getName(){
         return name;
     }
@@ -29,9 +33,13 @@ public abstract class Entity{
         return hp;
     }
 
-    /* loseHp()
-       handles hit point loss due to hit
-    */
+    /**
+     * loseHp()
+     * handles hit point loss due to hit
+     *
+     * @param hit   stores returned hit value
+     *
+     */
     public int loseHp(int hit){
         hp = hp - hit;
         if(hp < 0){
@@ -40,9 +48,13 @@ public abstract class Entity{
         return hp;
     }
 
-    /* gainHp()
-       handles hit point goint due to heal
-    */
+    /**
+     * gainHp()
+     * handles hit point gain due to heal
+     *
+     * @param heal  int by which entity is healed
+     *
+     */
     public int gainHp(int heal){
         hp = hp + heal;
         if(hp > maxHp){
@@ -51,8 +63,10 @@ public abstract class Entity{
         return hp;
     }
     
-    /* incMaxHp()
+    /**
+     * incMaxHp()
      * increases maximum hit points
+     *
      */
     public void incMaxHp(){
         maxHp += 50;
