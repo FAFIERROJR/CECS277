@@ -1,4 +1,18 @@
+/** 
+ * PokemonMaker class
+ * contains static functions to be used
+ * for creating Pokemon
+ *
+ * @author  Francisco Fierro
+ */
 public class PokemonMaker{
+
+    /**
+     * makeWildPokemon()
+     * Makes and returns a random Pokemon
+     * to be used as a wild Pokemon
+     *
+     */
     public static Pokemon makeWildPokemon(){
         Pokemon pokemon;
         int random = (int) Math.round(Math.random() * 7);
@@ -37,6 +51,13 @@ public class PokemonMaker{
         return pokemon;
     }
 
+    /**
+     * makeTypePokemon
+     * makes and returns a pokemon of a particular type
+     *
+     * @param type  type of pokemon to be made
+     *
+     */
     public static Pokemon makeTypePokemon(int type){
         int random = (int)Math.round(Math.random());
         Pokemon pokemon;
@@ -83,6 +104,14 @@ public class PokemonMaker{
         return pokemon;
     }
 
+    /**
+     * makeStartPokemon()
+     * makes and returns a starter pokemon
+     * for the player character
+     *
+     * @param start int delineating starter pokemon
+     *
+     */
     public static Pokemon makeStartPokemon(int start){
         Pokemon pokemon;
         switch(start){

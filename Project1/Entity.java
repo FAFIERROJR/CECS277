@@ -3,6 +3,8 @@
  * defines characteristics common to player, opponent and
  * Pokemon
  *
+ * @author Francisco Fierro
+ *
  */
 public abstract class Entity{
     private String name;

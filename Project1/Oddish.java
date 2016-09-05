@@ -1,3 +1,11 @@
+/**
+ * Oddish class
+ * simulates Oddish Pokemon
+ *
+ * @author  Francisco Fierro
+ *
+ */
+
 public class Oddish extends Pokemon implements Grass{
     public Oddish(){
         super("Oddish", 1);
@@ -13,14 +21,17 @@ public class Oddish extends Pokemon implements Grass{
         System.out.println(typeMenu);
     }
 
-    /* specialFight()
-       handles the determination and execution of
-       an attack move; prints Pokemon-like attack dialog
-    */
-
+    /**
+     * specialFight()
+     * handles the determination and execution of
+     * an attack move; prints Pokemon-like attack dialog
+     *
+     * @param move   integer representing chosen move
+     *
+     */
     @Override
     public int specialFight(int move){
-        //switch case to handle chosen basic attack
+        /** switch case to handle chosen basic attack */
         int hit = 0;
        switch(move){
             case 1:
@@ -36,22 +47,30 @@ public class Oddish extends Pokemon implements Grass{
         return hit;
     }
 
-    /* The functions below are the special attacks unique to each Pokemon
-       Each attack does random damage which is multiplied
-       by the pokemon's level
-    */
+    /**
+     * vineWhip();
+     * performs Vine Whip, displays, and returns hit value
+     */
     public int vineWhip(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
         System.out.format("%s used Vine Whip", getName());
         return hit;
     }
 
+    /**
+     * razorLeaf();
+     * performs Razor Leaf, displays, and returns hit value
+     */
     public int razorLeaf(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
         System.out.format("%s used Razor Leaf", getName());
         return hit;
     }
 
+    /**
+     * solarBeam();
+     * performs Razor Leaf, displays, and returns hit value
+     */
     public int solarBeam(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
         System.out.format("%s used Solar Beam", getName());

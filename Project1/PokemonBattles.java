@@ -1,5 +1,23 @@
+/**
+ * PokemonBattles class
+ * contains static methods to be used by main
+ * to perform battle rounds
+ * 
+ * @author  Francisco Fierro
+ *
+ */
 public class PokemonBattles{
+    /** fightTable is a 4x4 array to determine damage type bonuses */
     private final static double [][] fightTable = {{.5,.5,2,1},{2,.5,.5,1},{.5,2,.5,1},{1,2,.5,.5}};
+
+    /** 
+     * trainerBattle()
+     * performs a single turn of battle
+     * 
+     * @param attacker  trainer whose turn it is for attack
+     * @param defener   trainer whose pokemon is being attacked
+     *
+     */
     private static void trainerBattle(Trainer attacker, Trainer defender){
         int hit = attacker.battle();
         hit = (int)(hit * fightTable[attacker.getCurrentPokemon().getType()][defender.getCurrentPokemon().getType()]);
@@ -7,11 +25,28 @@ public class PokemonBattles{
         defender.getCurrentPokemon().loseHp(hit);
     }
 
+    /**
+     * opponentBattle()
+     * performs a round of battle using trainerBattle()
+     *
+     * @param player    the player character
+     * @param player    the CPU opponent
+     *
+     */
     public static void opponentBattle(Player player, Opponent opponent){
         trainerBattle(player, opponent);
         trainerBattle(opponent, player);
     }
 
+    /**
+     * wildPokemonBattle()
+     * performs a round of battle agains wild pokemon
+     * using wilPokeAttack to determin wild pokemon's attack
+     *
+     * @param player    the player character
+     * @param poke      the wild pokemon
+     *
+     */
     public static void wildPokemonBattle(Player player, Pokemon poke){
         int playerHit = player.battle();
         playerHit = (int)(playerHit * fightTable[player.getCurrentPokemon().getType()][poke.getType()]);
@@ -21,6 +56,14 @@ public class PokemonBattles{
         wildPokeAttack(player, poke);
     }
 
+    /**
+     * angryPokemon()
+     * performs scene in which player is directly hurt
+     * by a random wild pokemon
+     *
+     * @param trainer   the player character
+     *
+     */
     public static void angryPokemon(Trainer trainer){
         Pokemon angryPoke = PokemonMaker.makeWildPokemon();
         
@@ -28,6 +71,13 @@ public class PokemonBattles{
         angryPokeAttack(trainer, angryPoke);
     }
 
+    /**
+     * angryTrainer()
+     * performs scene in which player is directly hurt
+     * by a random angry trainer
+     *
+     * @param trainer   the player character
+     */
     public static void angryTrainer(Trainer trainer){
         int random = (int)(Math.random() * 2 + 1);
         int randomDamage =(int)(Math.random() * 10  + 1);
@@ -46,6 +96,14 @@ public class PokemonBattles{
         trainer.loseHp(randomDamage);
     }     
 
+    /**
+     * wildPokeAttack()
+     * helper function for wildPokemonBattle()
+     * determines and deals attack by wild pokemon
+     *
+     * @param player    the player character
+     * @param poke      the wild pokemon
+     */
     private static void wildPokeAttack(Player player, Pokemon poke){
         int pokeHit;
         int random1;
@@ -59,6 +117,15 @@ public class PokemonBattles{
         player.getCurrentPokemon().loseHp(pokeHit);
     }
 
+    /**
+     * angryPokeAttack()
+     * helper function for angryPokemon()
+     * determines and deals attack by angry pokemon
+     *
+     * @param trainer   the player character
+     * @param poke      the angry pokemon
+     *
+     */
     private static void angryPokeAttack(Trainer trainer, Pokemon poke){
         int pokeHit;
         int random1;

@@ -1,4 +1,17 @@
+/**
+ * OpponentMaker class
+ * contains static functions to be used by main
+ * to create Opponents
+ *
+ * @author Francisco Fierro
+ *
+ */
 public class OpponentMaker{
+    /**
+     * makeRandomOpponent()
+     * makes and returns a random opponent
+     *
+     */
     static Opponent makeRandomOpponent(){
         Opponent opponent;
         Pokemon pokemon;

@@ -10,7 +10,8 @@ import java.lang.Math;
 public class Charmander extends Pokemon implements Fire{
 
     /**
-     * Bulbasaur() simple constructor
+     * Charmander() 
+     * simple constructor
      */    
     public Charmander(){
         super("Charmander", 1);
@@ -41,7 +42,7 @@ public class Charmander extends Pokemon implements Fire{
      * handles the determination and execution of
      * an attack move; prints Pokemon-like attack dialog
      *
-     *@param move   integer representing chosen move
+     * @param move   integer representing chosen move
      *
      */
     @Override

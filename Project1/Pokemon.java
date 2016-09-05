@@ -1,11 +1,9 @@
 /**
-  *@author Francisco Fierro
-  *Date: 8/22/2016
-  *Program: Project 1
-  *File: Pokemon.java
-  *Description: daughter of Entity; abstract class for pokemon
-*/
-
+ * Pokemon class
+ * defines characteristics common to all Pokemon
+ *
+ * @author Francisco Fierro
+ */
 import java.lang.Math;
 
 public abstract class Pokemon extends Entity{
@@ -14,10 +12,15 @@ public abstract class Pokemon extends Entity{
     private int nextLevelExp;
 
 
-    /* Pokemon()
-       Basic constructor 
-       sets name and level
-    */
+    /**
+     * Pokemon()
+     * Basic constructor 
+     * sets name and level
+     *
+     * @param name  Name of Pokemon
+     * @param level Pokemons level
+     *
+     */
     public Pokemon(String name, int level){
         super(name, 100);
         this.level = level;
@@ -25,29 +28,66 @@ public abstract class Pokemon extends Entity{
         nextLevelExp = 1000;
     }
 
+    /**
+     * abstract getType()
+     * returns Pokemon type
+     *
+     */
     public abstract int getType();
 
+    /**
+     * abstract specialFight()
+     * handles the determination and execution of
+     * an attack move; prints Pokemon-like attack dialog
+     *
+     * @param move  represents attack chosen
+     *
+     */    
     public abstract int specialFight(int move);
 
+    /**
+     * abstract void displaySpecialMenu()
+     * displays special fight menu
+     *
+     */
     public abstract void displaySpecialMenu();
 
+    /**
+     * getLevel()
+     * returns level
+     *
+     */
     public int getLevel(){
         return level;
     }
 
+    /**
+     * setLevel()
+     * sets Pokemon's level
+     *
+     * @param level integer to set Pokemon's level
+     *
+     */
     public void setLevel(int level){
         this.level = level;
     }
   
-    /* gainExp()
-       Increases exp by amount gained from battle
-    */
-
-
+    /**
+     * displayPokemon()
+     * diplays Pokemon's name Hp and Level
+     *
+     */
     public void displayPokemon(){
         System.out.format("\n%s HP: %d LVL: %d\n", getName(), getHp(), level);
     }
 
+
+    /**
+     * gainExp()
+     * Increases exp by amount gained from battle
+     *
+     * @param exp   amount by which to increase EXP
+     */
     public int gainExp(int exp){
         this.exp = this.exp + exp;
 
@@ -60,14 +100,19 @@ public abstract class Pokemon extends Entity{
         return this.exp;
     }
 
+    /**
+     * getExp()
+     * returns EXP value
+     *
+     */
     public int getExp(){
         return exp;
     }
 
-    /* displayBasicMenu()
-       displays Menu for basic attacks
-    */
-
+    /**
+     * displayBasicMenu()
+     * displays Menu for basic attacks
+     */
     public void displayBasicMenu(){
         System.out.println("\t1. Slam");
         System.out.println("\t2. Tackle");
@@ -75,12 +120,15 @@ public abstract class Pokemon extends Entity{
     }
 
 
-    /* basicFight()
-       determines which basic attack was chosen and
-       executes it
+    /**
+     * basicFight()
+     * determines which basic attack was chosen and
+     * executes it
+     *
+     * @param move  represents choosen move
     */
     public int basicFight(int move){
-        //switch case to handle chose basic attack
+        /** switch case to handle chose basic attack */
         int hit = 0;
         switch(move){
             case 1:
@@ -99,6 +147,16 @@ public abstract class Pokemon extends Entity{
         return hit;
     }
 
+    /**
+     * fight()
+     * handles execution of move
+     * by calling basicFight or specialFight()
+     * returns hit value
+     *
+     * @param style  represents chosen attack style
+     * @param move
+     *
+     */
     public int fight(int style, int move){
         int hit = 0;
         if(style == 1){
@@ -110,18 +168,29 @@ public abstract class Pokemon extends Entity{
         return hit;
     }
     
-    /* The functions below are the basic attacks common to all Pokemon
-       Each attack does random damage which is multiplied
-       by the pokemon's level
-    */
+    /**
+     * slam()
+     * performs Slam, displays, and returns hit value
+     *
+     */
     public int slam(){
         return (int)(20 * Math.random()) + 3 * level;
     }
 
+    /**
+     * tackle()
+     * performs Tackle, displays, and returns hit value
+     *
+     */
     public int tackle(){
         return (int)(20 * Math.random()) + 3 * level;
     }
 
+    /**
+     * megaPunch()
+     * performs Mega Punch, displays, and returns hit value
+     *
+     */
     public int megaPunch(){
         return (int)(20 * Math.random()) + 3 * level;
     }

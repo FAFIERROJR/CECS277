@@ -1,3 +1,9 @@
+/**
+ * Staryu class
+ * Simulates a Staryu pokemon
+ *
+ * @author  Francisco Fierro
+ */
 public class Staryu extends Pokemon implements Water{
     public Staryu(){
         super("Staryu", 1);

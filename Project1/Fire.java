@@ -3,6 +3,8 @@
  * outlines characteristics common to Fire type
  * Pokemon
  *
+ * @author  Francisco Fierro
+ *
  */
 public interface Fire{
     /** int type stores an integer representing the Electric type */

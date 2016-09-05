@@ -3,6 +3,8 @@
  * outlines characteristics common to Grass type
  * Pokemon
  *
+ * @author  Francisco Fierro
+ *
  */
 public interface Grass{
     /** int type stores an integer representing the Electric type */
@@ -11,7 +13,7 @@ public interface Grass{
     public static final String typeMenu = "1 .Vine Whip\n2. Razor Leaf\n3. Solar Beam";
 
     /**
-     * vinWhip();
+     * vineWhip();
      * performs Vine Whip, displays, and returns hit value
      */
     public int vineWhip();
