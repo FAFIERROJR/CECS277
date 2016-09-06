@@ -51,7 +51,7 @@ public class Opponent extends Trainer{
                 System.out.println(getName() + ": You can't stop Team Rocket!");
                 break;
             case 3:
-                System.out.println(getName() + ": I think I'm winning");
+                System.out.println(getName() + ": Do you have any LVL 99 Magikarps?");
                 break;
             case 4:
                 System.out.println(getName() + ": My " + getCurrentPokemon().getName() + " is strong!");

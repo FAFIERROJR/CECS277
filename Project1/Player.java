@@ -133,10 +133,17 @@ public class Player extends Trainer{
      *
      */
     public int chooseStyle(){
+        int style = 0;
+
         System.out.println("\t1. Basic");
         System.out.println("\t2. Special");
 
-        int style = CheckInput.checkInt();
+        do{
+            style = CheckInput.checkInt();
+            if(style < 1 || style > 2){
+                System.out.println("That's not an option. Try again");
+            }
+        }while(style < 1 || style > 2);
         return style;
     }
 
@@ -150,7 +157,7 @@ public class Player extends Trainer{
      */
     @Override
     public int chooseMove(int style){
-        int move;
+        int move = 0;
         switch(style){
             case 1:          
                 getCurrentPokemon().displayBasicMenu();
@@ -159,7 +166,12 @@ public class Player extends Trainer{
                 getCurrentPokemon().displaySpecialMenu();
                 break;
         }
-        move = CheckInput.checkInt();
+        do{
+            move = CheckInput.checkInt();
+            if(move < 1 || move > 2){
+                System.out.println("That's not an option. Try again");
+            }
+        }while(move < 1 || move > 2);
         return move;
     }
 }

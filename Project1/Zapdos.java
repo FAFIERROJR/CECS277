@@ -67,7 +67,6 @@ public class Zapdos extends Pokemon implements Electric{
      *
      */
     public int thunderShock(){
-    public int thunderShock(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
         System.out.format("%s used Thunder Shock", getName());
         return hit;
