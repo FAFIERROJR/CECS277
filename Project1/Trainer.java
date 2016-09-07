@@ -126,7 +126,7 @@ public abstract class Trainer extends Entity{
      * sets active pokemon for battling
      *
      * @param cur   index of pokemon to be set as current
-     * @return      the
+     * @return      the current Pokemon
      */
     public Pokemon setCurrentPokemon(int cur){
         while(cur < 0 || cur >= pokemon.size()){
@@ -143,6 +143,7 @@ public abstract class Trainer extends Entity{
      * getNextCurPokemon()
      * switches to next available pokemon
      *
+     * @return  the index of the next available pokemon, -1 if none
      */
     public int getNextCurPokemon(){
         int i = 0;
@@ -165,6 +166,8 @@ public abstract class Trainer extends Entity{
     /**
      * battle()
      * handles trainer's end of a battle round
+     *
+     * @return  the hit value
      *
      */
     public int battle(){
