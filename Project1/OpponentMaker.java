@@ -11,6 +11,7 @@ public class OpponentMaker{
      * makeRandomOpponent()
      * makes and returns a random opponent
      *
+     * @return  the randomly generated opponent
      */
     static Opponent makeRandomOpponent(){
         Opponent opponent;
@@ -59,7 +60,6 @@ public class OpponentMaker{
         if(pokemon2 != null){
             opponent.addPokemon(pokemon2);
         }
-        opponent.listPokemon();
         return opponent;        
     }
 }

@@ -7,8 +7,11 @@
 import java.lang.Math;
 
 public abstract class Pokemon extends Entity{
+    /** the Pokemon's level */
     private int level;
+    /** the Pokemon's current exp */
     private int exp;
+    /** the exp threshold for level up */
     private int nextLevelExp;
 
 

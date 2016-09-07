@@ -7,10 +7,11 @@
  *
  */
 public class Player extends Trainer{
-    /* int potions = number of potions */
+    /** number of potions */
     private int potions;
-    /* int pokeballs = number of pokeballs*/
+    /** number of pokeballs*/
     private int pokeballs;
+    /** amount of money in wallet */
     private int money;
 
     /**
@@ -32,7 +33,6 @@ public class Player extends Trainer{
     /**
      * usePotion()
      * heals current pokemon and decrements potion
-     *
      *
      */
     public void usePotion(){

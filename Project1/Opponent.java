@@ -64,7 +64,7 @@ public class Opponent extends Trainer{
 
     /**
      * winSpeech()
-     *  prints speech given at Opponent win
+     * prints speech given at Opponent win
      *
      */
     public void winSpeech(){

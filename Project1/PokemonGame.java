@@ -28,7 +28,7 @@ public class PokemonGame{
 
         /* outer most game loop */
         while(true){
-            int randomScenario = (int) Math.round(Math.random() * 5);
+            int randomScenario = (int) Math.round(Math.random() * 7);
             int mainChoice;
             player.gainHp(10);
 
@@ -39,7 +39,7 @@ public class PokemonGame{
                 if(mainChoice < 1 || mainChoice > 6){
                     System.out.println("That's not an option. Try again.");
                 }
-            }while(mainChoice < 1 || mainChoice > 6);
+            }while(mainChoice < 1 || mainChoice > 5);
             switch(mainChoice){
                 case 1:
                 switch(randomScenario){
@@ -69,11 +69,18 @@ public class PokemonGame{
                         break;
                     /* angry Trainer scene */
                     case 5:
+                    case 6:
                         PokemonBattles.angryTrainer(player);
                         if(player.getHp() == 0){
                             playerDeath();
                             System.exit(0);
                         }
+                        break;
+                    /* PokeMart */
+                    case 7:
+                        System.out.println("You've arrived at a PokeMart");
+                        displayShopMenu();
+                        shop(player);
                         break;
                 }
                 break;
@@ -88,15 +95,10 @@ public class PokemonGame{
                 /* status */
                 case 4:
                     player.listPokemon();
-                    break;
-                /* shop */
-                case 5:
-                    displayShopMenu();
-                    int item = CheckInput.checkInt();
-                    shop(player,item);
+                    displayItems(player);
                     break;
                 /* quit */
-                case 6:
+                case 5:
                     System.out.println("Thanks for playing!");
                     System.exit(0);
                     break;
@@ -121,10 +123,10 @@ public class PokemonGame{
             displayMainBattleMenu();
             do{
                 mainChoice = CheckInput.checkInt();
-                if(mainChoice < 1 || mainChoice > 7){
+                if(mainChoice < 1 || mainChoice > 6){
                     System.out.println("That's not an option. Try again");
                 }
-            }while(mainChoice < 1 || mainChoice > 7);
+            }while(mainChoice < 1 || mainChoice > 6);
 
             switch(mainChoice){
                 /* fight */
@@ -143,18 +145,12 @@ public class PokemonGame{
                 case 4:
                     run = true;
                     break;
-                /* shop */
-                case 5:
-                    displayShopMenu();
-                    int item = CheckInput.checkInt();
-                    shop(player,item);
-                    break;
                 /* catch */
-                case 6:
+                case 5:
                     System.out.println("That pokemon belongs to " + opp.getName());
                     break;
                 /* quit */
-                case 7:
+                case 6:
                     System.out.println("Thanks for playing!");
                     System.exit(0);
                     break;
@@ -203,10 +199,10 @@ public class PokemonGame{
             int mainChoice;
             do{
                 mainChoice = CheckInput.checkInt();
-                if(mainChoice < 1 || mainChoice > 7){
+                if(mainChoice < 1 || mainChoice > 6){
                     System.out.println("That's not an option. Try again");
                 }
-            }while(mainChoice < 1 || mainChoice > 7);
+            }while(mainChoice < 1 || mainChoice > 6);
 
             switch(mainChoice){
                 /* fight */
@@ -225,14 +221,8 @@ public class PokemonGame{
                 case 4:
                     run = true;
                     break;
-                /* shop */
-                case 5:
-                    displayShopMenu();
-                    int item = CheckInput.checkInt();
-                    shop(player,item);
-                    break;  
                 /* catch */    
-                case 6:
+                case 5:
                     if(catchPokemon(player,opp)){
                         System.out.println("You've caught a " + opp.getName() + "!");
                         run = true;
@@ -242,7 +232,7 @@ public class PokemonGame{
                     }
                     break;
                 /* quit */
-                case 7:
+                case 6:
                     System.out.println("Thanks for playing!");
                     System.exit(0);
                     break;
@@ -302,13 +292,12 @@ public class PokemonGame{
      */
 
     private static void displayMainMenu(){
-        System.out.println("\n What now?");
+        System.out.println("\nWhat now?");
         System.out.println("1. Travel");
         System.out.println("2. Heal" );
         System.out.println("3. Switch");
         System.out.println("4. Status");
-        System.out.println("5. Shop");
-        System.out.println("6. Exit");
+        System.out.println("5. Exit");
     }
 
     /**
@@ -321,9 +310,8 @@ public class PokemonGame{
         System.out.println("2. Heal" );
         System.out.println("3. Switch");
         System.out.println("4. Run");
-        System.out.println("5. Shop");
-        System.out.println("6. Catch");
-        System.out.println("7. Exit");
+        System.out.println("5. Catch");
+        System.out.println("6. Exit");
     }
 
 
@@ -420,8 +408,10 @@ public class PokemonGame{
      * handles buying of items
      *
      */
-    private static void shop(Player player, int item){
-       while(item == 1 || item == 2){  
+    private static void shop(Player player){
+       int item;
+        do{  
+            item = CheckInput.checkInt();
             if (item == 1){
                 player.buyPotion();
                 player.spendMoney(250);
@@ -430,8 +420,7 @@ public class PokemonGame{
                 player.buyPokeball();
                 player.spendMoney(100);
             }
-            item = CheckInput.checkInt();
-        }
+        }while(item == 1 || item == 2);
     }
 
     /**

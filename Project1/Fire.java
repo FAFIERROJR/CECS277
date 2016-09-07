@@ -7,9 +7,9 @@
  *
  */
 public interface Fire{
-    /* int type stores an integer representing the Electric type */
+    /** int type stores an integer representing the Electric type */
     public static final int type = 0;
-    /* String typeMenu stores special attack menu */
+    /** String typeMenu stores special attack menu */
     public static final String typeMenu = "1. Ember\n2. Fire Blast\n3. Fire Punch";
 
     /**

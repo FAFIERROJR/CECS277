@@ -10,8 +10,10 @@
 import java.util.*;
 
 public abstract class Trainer extends Entity{
+    /** holds pokemon in party */
     private ArrayList<Pokemon> pokemon;
-    int currentPokemon;
+    /** holds index of currently active Pokemon */
+    private int currentPokemon;
 
     /**
      * Trainer(String name, int hp)

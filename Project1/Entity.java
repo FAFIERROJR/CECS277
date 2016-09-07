@@ -7,8 +7,11 @@
  *
  */
 public abstract class Entity{
+    /** the name of the entity */
     private String name;
+    /** its hit points */
     private int hp;
+    /** the maximum hit points */
     private int maxHp;
 
     /**
@@ -56,7 +59,7 @@ public abstract class Entity{
      * handles hit point gain due to heal
      *
      * @param heal  int by which entity is healed
-     *
+     * @return      the current hp
      */
     public int gainHp(int heal){
         hp = hp + heal;

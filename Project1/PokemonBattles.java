@@ -41,7 +41,7 @@ public class PokemonBattles{
     /**
      * wildPokemonBattle()
      * performs a round of battle agains wild pokemon
-     * using wilPokeAttack to determin wild pokemon's attack
+     * using wilPokeAttack to determine wild pokemon's attack
      *
      * @param player    the player character
      * @param poke      the wild pokemon

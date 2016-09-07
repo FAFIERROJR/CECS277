@@ -3,11 +3,13 @@
  * outlines characteristics common to Electric type
  * Pokemon
  *
+ * @author Francisco Fierro
+ *
  */
 public interface Electric{
-    /* int type stores an integer representing the Electric type */
+    /** int type stores an integer representing the Electric type */
     public static final int type = 3;
-    /* String typeMenu stores special attack menu */
+    /** String typeMenu stores special attack menu */
     public static final String typeMenu = "1. Thunder Shock\n2. Thunderbolt\n3.Thunder Punch";
 
     /**
