@@ -24,6 +24,7 @@ public abstract class Trainer extends Entity{
     public Trainer(String name, int hp){
         super(name,hp);
         pokemon = new ArrayList<Pokemon>();
+        currentPokemon = 0;
     }
     
     /**
@@ -50,7 +51,8 @@ public abstract class Trainer extends Entity{
     /**
      * chooseStyle()
      * prints  Style menu and prompts for user to choose style
-     * returns int of chosen style
+     *
+     * @return  chosen style
      *
      */
     public abstract int chooseStyle();
@@ -61,7 +63,7 @@ public abstract class Trainer extends Entity{
      * based on chosen style, returns int of chosen move
      *
      * @param style represents chosen style
-     *
+     * @return      chosen move
      */
     public abstract int chooseMove(int style);
    
@@ -77,7 +79,8 @@ public abstract class Trainer extends Entity{
     
     /**
      * getCurrentPokemon()
-     * returns current Pokemon
+     *
+     * @return current Pokemon
      *
      */
     public Pokemon getCurrentPokemon(){
@@ -114,7 +117,7 @@ public abstract class Trainer extends Entity{
      */
     public void healAllPokemon(){
         for(int i = 0; i < pokemon.size(); i++){
-            pokemon.get(currentPokemon).gainHp(1000000);
+            pokemon.get(i).gainHp(1000000);
         }
     }
     
@@ -123,9 +126,14 @@ public abstract class Trainer extends Entity{
      * sets active pokemon for battling
      *
      * @param cur   index of pokemon to be set as current
-     *
+     * @return      the
      */
     public Pokemon setCurrentPokemon(int cur){
+        while(cur < 0 || cur >= pokemon.size()){
+            System.out.println("That's not an option\nTry again");
+            cur = CheckInput.checkInt();
+            cur = cur - 1;
+        }
         currentPokemon = cur;
         return pokemon.get(currentPokemon);
     }
@@ -139,14 +147,18 @@ public abstract class Trainer extends Entity{
     public int getNextCurPokemon(){
         int i = 0;
         int j = currentPokemon;
-            for(i = 0; i < pokemon.size(); i++){
-                if(j == pokemon.size()) {
+        //cycle through party
+        for(i = 0; i < pokemon.size(); i++){
+            //wrap around
+            if(j == pokemon.size()) {
                     j = 0;
-                }
-                if(pokemon.get(j).getHp() > 0){
-                    return j;
-                }
             }
+            
+            if(pokemon.get(j).getHp() > 0){
+                return j;
+            }
+            j++;
+        }
         return -1;
     }
     

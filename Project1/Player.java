@@ -7,9 +7,9 @@
  *
  */
 public class Player extends Trainer{
-    /** int potions = number of potions */
+    /* int potions = number of potions */
     private int potions;
-    /** int pokeballs = number of pokeballs*/
+    /* int pokeballs = number of pokeballs*/
     private int pokeballs;
     private int money;
 
@@ -33,6 +33,7 @@ public class Player extends Trainer{
      * usePotion()
      * heals current pokemon and decrements potion
      *
+     *
      */
     public void usePotion(){
         if(potions > 0){
@@ -48,6 +49,8 @@ public class Player extends Trainer{
     /**
      * getNumPotionsLeft()
      * returns number of potions
+     *
+     * @return  number of potions
      *
      */
     public int getNumPotionsLeft(){
@@ -76,6 +79,7 @@ public class Player extends Trainer{
      * getNumbPokeballsLeft()
      * returns number of remaining pokeballs
      * 
+     * @return  number of pokeballs
      */
     public int getNumPokeballsLeft(){
         return pokeballs;
@@ -131,12 +135,15 @@ public class Player extends Trainer{
      * prints  Style menu and prompts for user to choose style
      * returns int of chosen style
      *
+     *
+     * @return  the user-chosen style
+     *
      */
     public int chooseStyle(){
         int style = 0;
 
-        System.out.println("\t1. Basic");
-        System.out.println("\t2. Special");
+        System.out.println("1. Basic");
+        System.out.println("2. Special");
 
         do{
             style = CheckInput.checkInt();
@@ -152,8 +159,8 @@ public class Player extends Trainer{
      * prints move menu and prompts for user to choose move
      * based on chosen style, returns int of chosen move
      *
-     * @param style represents chosen style
-     *
+     * @param style     represents chosen style
+     * @return          the user-chose move
      */
     @Override
     public int chooseMove(int style){
@@ -168,10 +175,10 @@ public class Player extends Trainer{
         }
         do{
             move = CheckInput.checkInt();
-            if(move < 1 || move > 2){
+            if(move < 1 || move > 3){
                 System.out.println("That's not an option. Try again");
             }
-        }while(move < 1 || move > 2);
+        }while(move < 1 || move > 3);
         return move;
     }
 }

@@ -12,6 +12,8 @@ public class PokemonMaker{
      * Makes and returns a random Pokemon
      * to be used as a wild Pokemon
      *
+     * @return  a wild pokemon
+     *
      */
     public static Pokemon makeWildPokemon(){
         Pokemon pokemon;
@@ -48,6 +50,7 @@ public class PokemonMaker{
         }
         
         System.out.println("\nIt's a wild " + pokemon.getName() + "!\n");   
+        pokemon.setLevel((int)Math.round(Math.random() + 1));
         return pokemon;
     }
 
@@ -56,6 +59,7 @@ public class PokemonMaker{
      * makes and returns a pokemon of a particular type
      *
      * @param type  type of pokemon to be made
+     * @return      pokemon of a particular type
      *
      */
     public static Pokemon makeTypePokemon(int type){
@@ -101,6 +105,7 @@ public class PokemonMaker{
     
         }
     
+        pokemon.setLevel((int)Math.round(Math.random() + 1));
         return pokemon;
     }
 
@@ -110,6 +115,7 @@ public class PokemonMaker{
      * for the player character
      *
      * @param start int delineating starter pokemon
+     * @return      the starting Pokemon
      *
      */
     public static Pokemon makeStartPokemon(int start){

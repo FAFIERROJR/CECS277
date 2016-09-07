@@ -7,15 +7,33 @@
  */
 
 public class Oddish extends Pokemon implements Grass{
+    
+    /**
+     * Oddish() 
+     * simple constructor
+     *
+     */  
     public Oddish(){
         super("Oddish", 1);
     }
 
+    /**
+     * getType() 
+     * returns the Pokemon's element type
+     *
+     * @return   the pokemon's type
+     */
     @Override
     public int getType(){
         return type;
     }
 
+
+     /**
+     * displaySpecialMenu()
+     * diplays special fight menu
+     *
+     */
     @Override
     public void displaySpecialMenu(){
         System.out.println(typeMenu);
@@ -31,7 +49,7 @@ public class Oddish extends Pokemon implements Grass{
      */
     @Override
     public int specialFight(int move){
-        /** switch case to handle chosen basic attack */
+        /* switch case to handle chosen basic attack */
         int hit = 0;
        switch(move){
             case 1:
@@ -50,6 +68,8 @@ public class Oddish extends Pokemon implements Grass{
     /**
      * vineWhip();
      * performs Vine Whip, displays, and returns hit value
+     *
+     * @return  hit values
      */
     public int vineWhip(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -60,6 +80,9 @@ public class Oddish extends Pokemon implements Grass{
     /**
      * razorLeaf();
      * performs Razor Leaf, displays, and returns hit value
+     *
+     * @return
+     *
      */
     public int razorLeaf(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();

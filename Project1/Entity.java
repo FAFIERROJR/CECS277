@@ -26,6 +26,7 @@ public abstract class Entity{
      * getName()
      * returns name of entity
      *
+     * @return  the entity's name
      */
     public String getName(){
         return name;
@@ -40,7 +41,7 @@ public abstract class Entity{
      * handles hit point loss due to hit
      *
      * @param hit   stores returned hit value
-     *
+     * @return      returns hp
      */
     public int loseHp(int hit){
         hp = hp - hit;

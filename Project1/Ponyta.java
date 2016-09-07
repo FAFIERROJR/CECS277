@@ -17,6 +17,8 @@ public class Ponyta extends Pokemon implements Fire{
     /**
      * getType() 
      * returns the Pokemon's element type
+     * 
+     * @return  the pokemon's type
      *
      */
     @Override
@@ -39,12 +41,12 @@ public class Ponyta extends Pokemon implements Fire{
      * handles the determination and execution of
      * an attack move; prints Pokemon-like attack dialog
      *
-     * @param move   integer representing chosen move
-     *
+     * @param move  integer representing chosen move
+     * @return      the hit value
      */
     @Override
     public int specialFight(int move){
-        /** switch case to handle chosen basic attack */
+        /* switch case to handle chosen basic attack */
         int hit = 0;
         switch(move){
             case 1:
@@ -64,6 +66,8 @@ public class Ponyta extends Pokemon implements Fire{
      * ember()
      * performs Ember, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     *
      */
     public int ember(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -76,6 +80,8 @@ public class Ponyta extends Pokemon implements Fire{
      * fireBlast()
      * performs Fire Blast, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     *
      */
     public int fireBlast(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -86,6 +92,8 @@ public class Ponyta extends Pokemon implements Fire{
     /**
      * firePunch()
      * performs Fire Punch, displays, and returns hit value
+     *
+     * @return  this attack's hit value
      *
      */
     public int firePunch(){

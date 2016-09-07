@@ -21,6 +21,7 @@ public class Charmander extends Pokemon implements Fire{
      * getType() 
      * returns the Pokemon's element type
      *
+     * @return   the pokemon's type
      */
     @Override
     public int getType(){
@@ -66,6 +67,7 @@ public class Charmander extends Pokemon implements Fire{
      * ember()
      * performs Ember, displays, and returns hit value
      *
+     * @return  the hit value of this attack
      */
     public int ember(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -78,6 +80,8 @@ public class Charmander extends Pokemon implements Fire{
      * fireBlast()
      * performs Fire Blast, displays, and returns hit value
      *
+     *
+     * @return  the hit value of this attack
      */
     public int fireBlast(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -88,6 +92,8 @@ public class Charmander extends Pokemon implements Fire{
     /**
      * firePunch()
      * performs Fire Punch, displays, and returns hit value
+     *
+     * @return  the hit value of this attack
      *
      */
     public int firePunch(){

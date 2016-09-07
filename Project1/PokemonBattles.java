@@ -66,9 +66,14 @@ public class PokemonBattles{
      */
     public static void angryPokemon(Trainer trainer){
         Pokemon angryPoke = PokemonMaker.makeWildPokemon();
+        /** stall so that player may read */
+        int stall;
         
         System.out.println("An angry " + angryPoke.getName() + " has approached!\nIt's coming straight for you!");
         angryPokeAttack(trainer, angryPoke);
+
+        System.out.println("Enter any integer to continue");
+        stall = CheckInput.checkInt();
     }
 
     /**
@@ -81,6 +86,9 @@ public class PokemonBattles{
     public static void angryTrainer(Trainer trainer){
         int random = (int)(Math.random() * 2 + 1);
         int randomDamage =(int)(Math.random() * 10  + 1);
+        /** stall so that player may read */
+        int stall;
+
         switch(random){
             case 1:
                 System.out.println("\nIt's Misty!\nMISTY: Where's my bike!\nMisty used Dropkick");
@@ -94,6 +102,9 @@ public class PokemonBattles{
         }
         System.out.println("You were hit for " + randomDamage + " points");
         trainer.loseHp(randomDamage);
+
+        System.out.println("Enter any integer to continue");
+        stall = CheckInput.checkInt();
     }     
 
     /**

@@ -16,7 +16,7 @@ public class PokemonGame{
         Player player = new Player("Ash", 80);
 
         do{
-            /** choosing a starter pokemon */
+            /* choosing a starter pokemon */
             System.out.println("Hey Ash. Choose a pokemon");
             pokeMenu();
             startPoke = CheckInput.checkInt();
@@ -25,50 +25,83 @@ public class PokemonGame{
             }
         }while(startPoke < 1 || startPoke > 4);
         player.addPokemon(PokemonMaker.makeStartPokemon(startPoke));
-        /** 
-         * outermost loop of game
-         * only exits when player loss or quit
-         *
-         */
+
+        /* outer most game loop */
         while(true){
             int randomScenario = (int) Math.round(Math.random() * 5);
+            int mainChoice;
             player.gainHp(10);
-            switch(randomScenario){
-                /** player-opponent battle */
-                case 0:
-                    Opponent opponent = OpponentMaker.makeRandomOpponent();
-                    opponent.attackSpeech();
-                    player.attackSpeech();
-                    pvpBattle(player, opponent);
-                    break;
-                /** player-wild battle */
+
+            do{
+                /* Main menu */
+                displayMainMenu();
+                mainChoice = CheckInput.checkInt();
+                if(mainChoice < 1 || mainChoice > 6){
+                    System.out.println("That's not an option. Try again.");
+                }
+            }while(mainChoice < 1 || mainChoice > 6);
+            switch(mainChoice){
                 case 1:
-                    Pokemon wildPokemon = PokemonMaker.makeWildPokemon();
-                    pveBattle(player, wildPokemon);
+                switch(randomScenario){
+                    /* player-opponent battle */
+                    case 0:
+                        Opponent opponent = OpponentMaker.makeRandomOpponent();
+                        opponent.attackSpeech();
+                        player.attackSpeech();
+                        pvpBattle(player, opponent);
+                        break;
+                    /* player-wild battle */
+                    case 1:
+                        Pokemon wildPokemon = PokemonMaker.makeWildPokemon();
+                        pveBattle(player, wildPokemon);
+                        break;
+                    /* pokecenter */
+                    case 3:
+                        pokeCenter(player);
+                        break;
+                    /* angry Pokemon scene */
+                    case 4:
+                        PokemonBattles.angryPokemon(player);
+                        if(player.getHp() == 0){
+                            playerDeath();
+                            System.exit(0);
+                        }
+                        break;
+                    /* angry Trainer scene */
+                    case 5:
+                        PokemonBattles.angryTrainer(player);
+                        if(player.getHp() == 0){
+                            playerDeath();
+                            System.exit(0);
+                        }
+                        break;
+                }
+                break;
+                /* heal */
+                case 2:
+                    player.usePotion();
                     break;
-                /** pokecenter */
+                /* switch Pokemon */
                 case 3:
-                    pokeCenter(player);
+                    switchPokemon(player);
                     break;
-                /** angry Pokemon scene */
+                /* status */
                 case 4:
-                    PokemonBattles.angryPokemon(player);
-                    if(player.getHp() == 0){
-                        playerDeath();
-                        System.exit(0);
-                    }
+                    player.listPokemon();
                     break;
-                /** angry Trainer scene */
+                /* shop */
                 case 5:
-                    PokemonBattles.angryTrainer(player);
-                    if(player.getHp() == 0){
-                        playerDeath();
-                        System.exit(0);
-                    }
+                    displayShopMenu();
+                    int item = CheckInput.checkInt();
+                    shop(player,item);
+                    break;
+                /* quit */
+                case 6:
+                    System.out.println("Thanks for playing!");
+                    System.exit(0);
                     break;
             }
-        }
-    }
+    }   }
 
     /**
      * pvpBattle()
@@ -81,9 +114,9 @@ public class PokemonGame{
     private static void pvpBattle(Player player, Opponent opp){
         boolean run = false;
         int mainChoice;
-        /** loop unti win, loss, run, or quit */
+        /* loop unti win, loss, run, or quit */
         while(!run){
-            /** display pokemon statuses */
+            /* display pokemon statuses */
             pvpStatus(player, opp);
             displayMainBattleMenu();
             do{
@@ -94,33 +127,33 @@ public class PokemonGame{
             }while(mainChoice < 1 || mainChoice > 7);
 
             switch(mainChoice){
-                /** fight */
+                /* fight */
                 case 1:
                     PokemonBattles.opponentBattle(player, opp);
                     break;
-                /** heal */
+                /* heal */
                 case 2:
                     player.usePotion();
                     break;
-                /** switch Pokemon */
+                /* switch Pokemon */
                 case 3:
                     switchPokemon(player);
                     break;
-                /** run */
+                /* run */
                 case 4:
                     run = true;
                     break;
-                /** shop */
+                /* shop */
                 case 5:
                     displayShopMenu();
                     int item = CheckInput.checkInt();
                     shop(player,item);
                     break;
-                /** catch */
+                /* catch */
                 case 6:
                     System.out.println("That pokemon belongs to " + opp.getName());
                     break;
-                /** quit */
+                /* quit */
                 case 7:
                     System.out.println("Thanks for playing!");
                     System.exit(0);
@@ -128,7 +161,7 @@ public class PokemonGame{
             }
 
             
-            /** player loss */
+            /* player loss */
             if(player.getCurrentPokemon().getHp() <= 0){
                 if(player.getNextCurPokemon() == -1){
                     opp.winSpeech();
@@ -138,14 +171,16 @@ public class PokemonGame{
                 }
                 chooseNewPokemon(player);
             }
-            /** player win */
+            /* player win */
             if(opp.getCurrentPokemon().getHp() <= 0){
                 if(opp.getNextCurPokemon() ==-1){
                     pvpWin(player, opp);
                     run = true;
                 }
                 else{
+                    System.out.println(opp.getCurrentPokemon().getName() + " fainted.");
                     opp.setCurrentPokemon(opp.getNextCurPokemon());
+                    System.out.println(opp.getName() + " chooses " + opp.getCurrentPokemon().getName());
                 }
             }
         }
@@ -161,7 +196,7 @@ public class PokemonGame{
      */
     private static void pveBattle(Player player, Pokemon opp){
         boolean run = false;
-        /** loop unti win, loss, run, or quit */
+        /* loop unti win, loss, run, or quit */
         while(!run){
             pveStatus(player, opp);
             displayMainBattleMenu();
@@ -174,29 +209,29 @@ public class PokemonGame{
             }while(mainChoice < 1 || mainChoice > 7);
 
             switch(mainChoice){
-                /** fight */
+                /* fight */
                 case 1:
                     PokemonBattles.wildPokemonBattle(player, opp);
                     break;
-                /** heal */
+                /* heal */
                 case 2:
                     player.usePotion();
                     break;
-                /** switch Pokemon */
+                /* switch Pokemon */
                 case 3:
                     switchPokemon(player);
                     break;
-                /** run */
+                /* run */
                 case 4:
                     run = true;
                     break;
-                /** shop */
+                /* shop */
                 case 5:
                     displayShopMenu();
                     int item = CheckInput.checkInt();
                     shop(player,item);
                     break;  
-                /** catch */    
+                /* catch */    
                 case 6:
                     if(catchPokemon(player,opp)){
                         System.out.println("You've caught a " + opp.getName() + "!");
@@ -206,14 +241,14 @@ public class PokemonGame{
                         System.out.println("It just escaped capture!");
                     }
                     break;
-                /** quit */
+                /* quit */
                 case 7:
                     System.out.println("Thanks for playing!");
                     System.exit(0);
                     break;
             }
 
-            /** player loss */
+            /* player loss */
             if(player.getCurrentPokemon().getHp() <= 0){
                 if(player.getNextCurPokemon() == -1){
                     System.out.println("All of your pokemon have fainted. Game Over. Thanks for Playing!\n");
@@ -221,7 +256,7 @@ public class PokemonGame{
                 }
                 chooseNewPokemon(player);
             }
-            /** player win */
+            /* player win */
             if(opp.getHp() <= 0){
                 pveWin(player, opp);
                 run = true;
@@ -261,18 +296,34 @@ public class PokemonGame{
     }
 
     /**
+     * displayMainMenu()
+     * prints Main Menu
+     *
+     */
+
+    private static void displayMainMenu(){
+        System.out.println("\n What now?");
+        System.out.println("1. Travel");
+        System.out.println("2. Heal" );
+        System.out.println("3. Switch");
+        System.out.println("4. Status");
+        System.out.println("5. Shop");
+        System.out.println("6. Exit");
+    }
+
+    /**
      * displayMainBattleMenu()
-     * prints initial menu
+     * prints initial battle menu
      *
      */
     private static void displayMainBattleMenu(){
-        System.out.println("\t1. Fight");
-        System.out.println("\t2. Heal" );
-        System.out.println("\t3. Switch");
-        System.out.println("\t4. Run");
-        System.out.println("\t5. Shop");
-        System.out.println("\t6. Catch");
-        System.out.println("\t7. Exit");
+        System.out.println("1. Fight");
+        System.out.println("2. Heal" );
+        System.out.println("3. Switch");
+        System.out.println("4. Run");
+        System.out.println("5. Shop");
+        System.out.println("6. Catch");
+        System.out.println("7. Exit");
     }
 
 
@@ -282,10 +333,10 @@ public class PokemonGame{
      *
      */
     private static void pokeMenu(){
-        System.out.println("\t1. Charmander");
-        System.out.println("\t2. Squirtle");
-        System.out.println("\t3. Bulbasaur");
-        System.out.println("\t4. Pikachu");
+        System.out.println("1. Charmander");
+        System.out.println("2. Squirtle");
+        System.out.println("3. Bulbasaur");
+        System.out.println("4. Pikachu");
     }
 
 
@@ -310,7 +361,7 @@ public class PokemonGame{
             System.out.println("Choose a Pokemon");
             player.listPokemon();
             int choice = CheckInput.checkInt();
-            player.setCurrentPokemon(choice);
+            player.setCurrentPokemon(choice - 1);
             if(player.getCurrentPokemon().getHp() <= 0){
                 System.out.println("That pokemon is unconscious!");
             }
@@ -361,6 +412,7 @@ public class PokemonGame{
      */
     private static void displayShopMenu(){
         System.out.println("1. Potion\t250 munny\n2. Pokeball\t 100 munny");
+        System.out.println("Enter any other integer to leave");
     }
     
     /**
@@ -369,13 +421,16 @@ public class PokemonGame{
      *
      */
     private static void shop(Player player, int item){
-        if (item == 1){
-            player.buyPotion();
-            player.spendMoney(250);
-        }
-        else{
-            player.buyPokeball();
-            player.spendMoney(100);
+       while(item == 1 || item == 2){  
+            if (item == 1){
+                player.buyPotion();
+                player.spendMoney(250);
+            }
+            else if (item == 2){
+                player.buyPokeball();
+                player.spendMoney(100);
+            }
+            item = CheckInput.checkInt();
         }
     }
 
@@ -385,7 +440,7 @@ public class PokemonGame{
      *
      * @param player    the player character
      * @param wildPoke  the wild pokemon
-     *
+     * @return          true if caught, false if not
      */
     private static boolean catchPokemon(Player player, Pokemon wildPoke){
         double chanceToCatch;
@@ -415,17 +470,7 @@ public class PokemonGame{
         player.listPokemon();
         choice = CheckInput.checkInt();
         
-        /** prevent crashing when IndexOutOfBounds */
-        try{
-            player.setCurrentPokemon(choice - 1);
-        }
-        catch(Exception e){
-            System.out.println("That's not an option.");
-        }
-        finally{
-            System.out.println("Reverting to first pokemon...");
-            player.setCurrentPokemon(0);
-        }
+        player.setCurrentPokemon(choice - 1);
     }   
 
     /**
@@ -441,11 +486,11 @@ public class PokemonGame{
         System.out.println("You've arrived at a PokeCenter.\n1. Heal Pokemon\n2. Leave");
          
         do{
-                choice = CheckInput.checkInt();
-                if(choice < 1 || choice > 2){
-                    System.out.println("That's not an option. Try again");
-                }
-            }while(choice < 1 || choice > 2);
+            choice = CheckInput.checkInt();
+            if(choice < 1 || choice > 2){
+                System.out.println("That's not an option. Try again");
+            }
+        }while(choice < 1 || choice > 2);
          
         if (choice == 1){
             player.healAllPokemon();

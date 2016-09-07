@@ -19,6 +19,7 @@ public class Squirtle extends Pokemon implements Water{
      * getType()
      * returns Pokemon type
      *
+     * @return  the pokemon's type
      */
     @Override
     public int getType(){
@@ -40,7 +41,8 @@ public class Squirtle extends Pokemon implements Water{
      * handles the determination and execution of
      * an attack move; prints Pokemon-like attack dialog
      *
-     * @param move   integer representing chosen move
+     * @param move      integer representing chosen move
+     * @return          the hit value 
      *
      */
     @Override
@@ -65,6 +67,8 @@ public class Squirtle extends Pokemon implements Water{
      * waterGun()
      * performs Water Gun, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     * 
      */
     public int waterGun(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -76,6 +80,8 @@ public class Squirtle extends Pokemon implements Water{
      * bubbleBeam()
      * performs Bubble Beam, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     * 
      */
     public int bubbleBeam(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -87,6 +93,8 @@ public class Squirtle extends Pokemon implements Water{
      * waterfall()
      * performs Water Fall, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     * 
      */
     public int waterfall(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();

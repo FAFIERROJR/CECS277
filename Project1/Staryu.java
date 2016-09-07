@@ -5,25 +5,46 @@
  * @author  Francisco Fierro
  */
 public class Staryu extends Pokemon implements Water{
+    /**
+     * Staryu()
+     * simple constructor
+     *
+     */
     public Staryu(){
         super("Staryu", 1);
     }
 
+    
+    /**
+     * getType()
+     * returns Pokemon type
+     *
+     * @return  the pokemon's type
+     */
     @Override
     public int getType(){
         return type;
     }
 
+    /**
+     * displaySpecialMenu
+     * displays special fight menu
+     *
+     */
     @Override
     public void displaySpecialMenu(){
         System.out.println(typeMenu);
     }
 
-    /* specialFight()
-       handles the determination and execution of
-       an attack move; prints Pokemon-like attack dialog
-    */
-
+   /**
+     * specialFight()
+     * handles the determination and execution of
+     * an attack move; prints Pokemon-like attack dialog
+     *
+     * @param move      integer representing chosen move
+     * @return          the hit value 
+     *
+     */
     @Override
     public int specialFight(int move){
         //switch case to handle chosen basic attack

@@ -26,8 +26,8 @@ public class Opponent extends Trainer{
 
     /**
      * getOpptype()
-     * returns Opponent's type
      *
+     * @return  opponent's type
      */
     public int getOpptype(){
         return type;
@@ -94,6 +94,7 @@ public class Opponent extends Trainer{
     /**
      * lossSpeech()
      * prints speech if Opponent loses
+     *
      */
     public void lossSpeech(){
         switch(type){
@@ -125,6 +126,8 @@ public class Opponent extends Trainer{
      * which represents choosing between basic and special
      * attack styles
      *
+     * @return  returns integer representing chosen style
+     *
      */
     public int chooseStyle(){
         return (int)Math.round(Math.random() + 1);
@@ -136,6 +139,9 @@ public class Opponent extends Trainer{
      * which represents choosing a particular attack
      * style need not be taken into account as menus
      * need not be printed
+     *
+     * @param style     the randomly chosen style
+     * @return          the randomly chosen move 
      *
      */
     public int chooseMove(int style){

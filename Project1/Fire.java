@@ -7,14 +7,16 @@
  *
  */
 public interface Fire{
-    /** int type stores an integer representing the Electric type */
+    /* int type stores an integer representing the Electric type */
     public static final int type = 0;
-    /** String typeMenu stores special attack menu */
+    /* String typeMenu stores special attack menu */
     public static final String typeMenu = "1. Ember\n2. Fire Blast\n3. Fire Punch";
 
     /**
      * Ember()
      * performs Ember, displays, and returns hit value
+     *
+     * @return  the hit value of this attack
      *
      */
     public int ember();
@@ -23,12 +25,17 @@ public interface Fire{
      * fireBlast()
      * performs Fire Blast, displays, and returns hit value
      *
+     * @return  the hit value of this attack
+     *
      */
     public int fireBlast();
 
     /**
      * thunderPunch();
      * performs Thunder Punch, displays, and returns hit value
+     *
+     * @return  the hit value of this attack
+     *
      */
     public int firePunch();
 }

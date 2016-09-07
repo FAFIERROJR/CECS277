@@ -32,6 +32,8 @@ public abstract class Pokemon extends Entity{
      * abstract getType()
      * returns Pokemon type
      *
+     * @return  Pokemon's type
+     *
      */
     public abstract int getType();
 
@@ -41,7 +43,7 @@ public abstract class Pokemon extends Entity{
      * an attack move; prints Pokemon-like attack dialog
      *
      * @param move  represents attack chosen
-     *
+     * @return      the hit value
      */    
     public abstract int specialFight(int move);
 
@@ -56,6 +58,7 @@ public abstract class Pokemon extends Entity{
      * getLevel()
      * returns level
      *
+     * @return  the Pokemon's level
      */
     public int getLevel(){
         return level;
@@ -66,7 +69,7 @@ public abstract class Pokemon extends Entity{
      * sets Pokemon's level
      *
      * @param level integer to set Pokemon's level
-     *
+     * 
      */
     public void setLevel(int level){
         this.level = level;
@@ -87,6 +90,8 @@ public abstract class Pokemon extends Entity{
      * Increases exp by amount gained from battle
      *
      * @param exp   amount by which to increase EXP
+     * @return      this pokemon's exp
+     *
      */
     public int gainExp(int exp){
         this.exp = this.exp + exp;
@@ -104,6 +109,8 @@ public abstract class Pokemon extends Entity{
      * getExp()
      * returns EXP value
      *
+     * @return  this pokemon's exp
+     *
      */
     public int getExp(){
         return exp;
@@ -114,9 +121,9 @@ public abstract class Pokemon extends Entity{
      * displays Menu for basic attacks
      */
     public void displayBasicMenu(){
-        System.out.println("\t1. Slam");
-        System.out.println("\t2. Tackle");
-        System.out.println("\t3. Mega Punch");
+        System.out.println("1. Slam");
+        System.out.println("2. Tackle");
+        System.out.println("3. Mega Punch");
     }
 
 
@@ -125,10 +132,10 @@ public abstract class Pokemon extends Entity{
      * determines which basic attack was chosen and
      * executes it
      *
-     * @param move  represents choosen move
+     * @param move  represents chosen move
     */
     public int basicFight(int move){
-        /** switch case to handle chose basic attack */
+        /* switch case to handle chose basic attack */
         int hit = 0;
         switch(move){
             case 1:
@@ -153,8 +160,9 @@ public abstract class Pokemon extends Entity{
      * by calling basicFight or specialFight()
      * returns hit value
      *
-     * @param style  represents chosen attack style
-     * @param move
+     * @param style     represents chosen attack style
+     * @param move      represents chosen attack move
+     * @return          the hit value
      *
      */
     public int fight(int style, int move){
@@ -172,6 +180,8 @@ public abstract class Pokemon extends Entity{
      * slam()
      * performs Slam, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     *
      */
     public int slam(){
         return (int)(20 * Math.random()) + 3 * level;
@@ -181,6 +191,8 @@ public abstract class Pokemon extends Entity{
      * tackle()
      * performs Tackle, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     *
      */
     public int tackle(){
         return (int)(20 * Math.random()) + 3 * level;
@@ -189,6 +201,8 @@ public abstract class Pokemon extends Entity{
     /**
      * megaPunch()
      * performs Mega Punch, displays, and returns hit value
+     *
+     * @return  this attack's hit value
      *
      */
     public int megaPunch(){

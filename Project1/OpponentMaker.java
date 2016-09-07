@@ -59,6 +59,7 @@ public class OpponentMaker{
         if(pokemon2 != null){
             opponent.addPokemon(pokemon2);
         }
+        opponent.listPokemon();
         return opponent;        
     }
 }

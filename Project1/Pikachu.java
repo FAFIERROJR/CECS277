@@ -21,6 +21,7 @@ public class Pikachu extends Pokemon implements Electric{
      * getType()
      * returns Pokemon type
      *
+     * @return  the Pokemon's type
      */
     @Override
     public int getType(){
@@ -43,11 +44,11 @@ public class Pikachu extends Pokemon implements Electric{
      * an attack move; prints Pokemon-like attack dialog
      *
      * @param move  represents attack chosen
-     *
+     * @return      the hit value
      */
     @Override
     public int specialFight(int move){
-        /** switch case to handle chosen basic attack */
+        /* switch case to handle chosen basic attack */
         int hit = 0;
        switch(move){
             case 1:
@@ -67,6 +68,8 @@ public class Pikachu extends Pokemon implements Electric{
      * thunderShock()
      * performs Thunder Shock, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     *
      */
     public int thunderShock(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -78,6 +81,8 @@ public class Pikachu extends Pokemon implements Electric{
      * thunderbolt()
      * performs Thunderbolt, displays, and returns hit value
      *
+     * @return  this attack's hit value
+     *
      */
     public int thunderbolt(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
@@ -88,6 +93,9 @@ public class Pikachu extends Pokemon implements Electric{
     /**
      * thunderPunch();
      * performs Thunder Punch, displays, and returns hit value
+     *
+     * @return this attack's hit value
+     *
      */
     public int thunderPunch(){
         int hit = (int)(25 * Math.random()) + 3 * getLevel();
