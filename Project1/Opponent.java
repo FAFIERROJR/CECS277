@@ -10,6 +10,12 @@ import java.lang.Math;
 public class Opponent extends Trainer{
     /** int type determines particular opponent */
     private int type;
+    
+    private String atkSpeech;
+	
+	private String lossSpeech;
+	
+	private String winSpeech;
 
     /**
      * Opponent()
@@ -19,9 +25,11 @@ public class Opponent extends Trainer{
      * @param type  unique to particular opponent
      *
      */
-    public Opponent(String name, int hp, int type){
-        super(name, hp);
-        this.type = type;
+    public Opponent(String n, int h, String a, String l, String w){
+        super(n, h);
+        atkSpeech = a;
+        lossSpeech = l;
+        winSpeech = w;
     }
 
     /**

@@ -6,6 +6,8 @@
  * @author  Francisco Fierro
  *
  */
+import Java.awt.Point;
+
 public class Player extends Trainer{
     /** number of potions */
     private int potions;
@@ -13,7 +15,8 @@ public class Player extends Trainer{
     private int pokeballs;
     /** amount of money in wallet */
     private int money;
-
+	
+	prviqate Point location;
     /**
      * Player()
      * simple constructor
@@ -181,4 +184,37 @@ public class Player extends Trainer{
         }while(move < 1 || move > 3);
         return move;
     }
+    
+    public Point getLocation(){
+    	return location.getLocation();
+    }
+    
+    boolean setLocation(Point p){
+
+    }
+    
+    char goNorth(Map m){
+    	if(p.getX() > 0){
+    		p.setLocation(p.getX(), p.getY() -1);
+        }
+    }
+    
+    char goSouth(Map m){
+    	if(p.getX() > 5){
+    		p.setLocation(p.getX() -1 , p.getY());
+        }
+    }
+    
+    char goEast(Map m){
+    	if(p.getX() < 5){
+    		p.setLocation(p.getX() -1 , p.getY());
+        }
+    }
+    
+    char goWest(Map m){
+    	if(p.getX() > 0){
+    		p.setLocation(p.getX() -1 , p.getY());
+        }
+    }
 }
+
