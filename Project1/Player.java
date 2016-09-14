@@ -16,7 +16,7 @@ public class Player extends Trainer{
     /** amount of money in wallet */
     private int money;
 	
-	prviqate Point location;
+	private Point location;
     /**
      * Player()
      * simple constructor
@@ -189,32 +189,46 @@ public class Player extends Trainer{
     	return location.getLocation();
     }
     
-    boolean setLocation(Point p){
-
+    public boolean setLocation(Point p){
+        if(p.getX() > -1 && p.getX() < 5){
+            if(p.getY() > -1 && p.getY() < 5){
+                location = p;
+                return true;
+            }
+        }
+        return false
     }
     
-    char goNorth(Map m){
-    	if(p.getX() > 0){
-    		p.setLocation(p.getX(), p.getY() -1);
+    public char goNorth(Map m){
+        if(setLocation(location.getX(), location.getY() - 1){
+            m.revealLocation(location);
+            return m.getCharAt(location);
         }
+        return null;
     }
     
     char goSouth(Map m){
-    	if(p.getX() > 5){
-    		p.setLocation(p.getX() -1 , p.getY());
+    	if(setLocation(location.getX(), location.getY() + 1){
+            m.revealLocation(location);
+            return m.getCharAt(location);
         }
+        return null;
     }
     
     char goEast(Map m){
-    	if(p.getX() < 5){
-    		p.setLocation(p.getX() -1 , p.getY());
+    	if(setLocation(location.getX() - 1, location.getY()){
+            m.revealLocation(location);
+            return m.getCharAt(location);
         }
+        return null;
     }
     
     char goWest(Map m){
-    	if(p.getX() > 0){
-    		p.setLocation(p.getX() -1 , p.getY());
+    	if(setLocation(location.getX() + 1, location.getY()){
+            m.revealLocation(location);
+            return m.getCharAt(location);
         }
+        return null;
     }
 }
 

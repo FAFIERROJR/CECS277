@@ -39,6 +39,7 @@ public class OpponentMaker{
 			System.out.print(fileName + " not found");
 		}
 	}
+
     /**
      * makeRandomOpponent()
      * makes and returns a random opponent
