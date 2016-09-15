@@ -14,7 +14,12 @@ public class PokemonGame{
     public static void main(String[] args){
         int startPoke;
         Player player = new Player("Ash", 80);
+        int areaNum = 1;
+        Map map = new Map();
+        int nothings = 0;
+        OpponentMaker oppMaker = new OpponentMaker();
 
+        //choose a pokemon
         do{
             /* choosing a starter pokemon */
             System.out.println("Hey Ash. Choose a pokemon");
@@ -26,9 +31,13 @@ public class PokemonGame{
         }while(startPoke < 1 || startPoke > 4);
         player.addPokemon(PokemonMaker.makeStartPokemon(startPoke));
 
-        /* outer most game loop */
+        //generate Area
+        map.generateArea(areaNum);
+        player.setLocation(map.findStartLocation());
+
+        /* at Overworld */
         while(true){
-            int randomScenario = (int) Math.round(Math.random() * 7);
+            map.displayMap(player.getLocation());
             int mainChoice;
             player.gainHp(10);
 
@@ -39,71 +48,94 @@ public class PokemonGame{
                 if(mainChoice < 1 || mainChoice > 6){
                     System.out.println("That's not an option. Try again.");
                 }
-            }while(mainChoice < 1 || mainChoice > 5);
+            }while(mainChoice < 1 || mainChoice > 8);
+
+            //chosen Overworld option
+            char pointChar = 'v';
             switch(mainChoice){
                 case 1:
-                switch(randomScenario){
-                    /* player-opponent battle */
-                    case 0:
-                        Opponent opponent = OpponentMaker.makeRandomOpponent();
-                        opponent.attackSpeech();
-                        player.attackSpeech();
-                        pvpBattle(player, opponent);
-                        break;
-                    /* player-wild battle */
-                    case 1:
-                        Pokemon wildPokemon = PokemonMaker.makeWildPokemon();
-                        pveBattle(player, wildPokemon);
-                        break;
-                    /* pokecenter */
-                    case 3:
-                        pokeCenter(player);
-                        break;
-                    /* angry Pokemon scene */
-                    case 4:
-                        PokemonBattles.angryPokemon(player);
-                        if(player.getHp() == 0){
-                            playerDeath();
-                            System.exit(0);
-                        }
-                        break;
-                    /* angry Trainer scene */
-                    case 5:
-                    case 6:
-                        PokemonBattles.angryTrainer(player);
-                        if(player.getHp() == 0){
-                            playerDeath();
-                            System.exit(0);
-                        }
-                        break;
-                    /* PokeMart */
-                    case 7:
-                        System.out.println("You've arrived at a PokeMart");
-                        displayShopMenu();
-                        shop(player);
-                        break;
-                }
-                break;
+                    pointChar = player.goNorth(map);
+                    break;
                 /* heal */
                 case 2:
-                    player.usePotion();
+                    pointChar = player.goSouth(map);
                     break;
                 /* switch Pokemon */
                 case 3:
-                    switchPokemon(player);
+                    pointChar = player.goEast(map);
                     break;
                 /* status */
                 case 4:
-                    player.listPokemon();
-                    displayItems(player);
+                    pointChar = player.goWest(map);
                     break;
-                /* quit */
+                /* heal */
                 case 5:
+                    player.usePotion();
+                    break;
+                /* switch Pokemon */
+                case 6:
+                    switchPokemon(player);
+                    break;
+                //stats
+                case 7:
+                    System.out.println("Ash's Stats");
+                    System.out.println("HP: " + player.getHp());
+                    displayItems(player);
+                    System.out.println("Pokemon:");
+                    player.listPokemon();
+                /* quit */
+                case 8:
                     System.out.println("Thanks for playing!");
                     System.exit(0);
                     break;
             }
-    }   }
+
+            //switch if pointChar set
+            if(pointChar != 'v'){
+                switch(pointChar){
+                    case 's':
+                        System.out.println("You're in a new Area");
+                        break;
+
+                    case 'f':
+                        areaNum++;
+                        if(areaNum == 4){
+                            System.out.println("Congratularations. You win.");
+                            System.exit(0);
+                        }
+                        map.generateArea(areaNum);
+                        break;
+
+                    case 'n':
+                        System.out.println("There's nothing of interest here");
+                        nothings++;
+                        if(nothings == 5){
+                            System.out.println(player.getCurrentPokemon().getName() + " is angry");
+                            System.out.println(player.getCurrentPokemon().getName() + " used Tackle on YOU");
+
+
+                            nothings = 0;
+                        }
+                        break;
+
+                    case 'o':
+                        Opponent opponent = oppMaker.makeRandomOpponent();
+                        pvpBattle(player,opponent);
+                        break;
+
+                    case 'w':
+                        Pokemon opp = PokemonMaker.makeWildPokemon();
+                        pveBattle(player,opp);
+                        break;
+
+                    case 'c':
+                        simCity(player);
+                }
+            }
+        }
+
+
+    }   
 
     /**
      * pvpBattle()
@@ -293,11 +325,14 @@ public class PokemonGame{
 
     private static void displayMainMenu(){
         System.out.println("\nWhat now?");
-        System.out.println("1. Travel");
-        System.out.println("2. Heal" );
-        System.out.println("3. Switch");
-        System.out.println("4. Status");
-        System.out.println("5. Exit");
+        System.out.println("1. Go North");
+        System.out.println("2. Go South");
+        System.out.println("3. Go East");
+        System.out.println("4. Go West");
+        System.out.println("5. Heal" );
+        System.out.println("6. Switch");
+        System.out.println("7. Status");
+        System.out.println("8. Exit");
     }
 
     /**
@@ -495,5 +530,20 @@ public class PokemonGame{
      private static void playerDeath(){
         System.out.println("Your HP has dropped to 0. Ash has fainted");
         System.out.println("Thanks for playing!");
+     }
+
+     private static void simCity(Player player){
+        int choice;
+
+        do{
+            System.out.println("You're in a city. What would you like to visit\n1. Pokecenter\n2.Pokemart\nAny other integer to leave");
+            choice = CheckInput.checkInt();
+            if(choice == 1){
+                pokeCenter(player);
+            }
+            if(choice == 2){
+                shop(player);
+            }
+        }while(choice == 1 || choice == 2);
      }
 }

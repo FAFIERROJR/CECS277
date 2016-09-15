@@ -6,7 +6,7 @@
  * @author  Francisco Fierro
  *
  */
-import Java.awt.Point;
+import java.awt.Point;
 
 public class Player extends Trainer{
     /** number of potions */
@@ -111,8 +111,8 @@ public class Player extends Trainer{
      * prints speech at start of battle
      *
      */
-    public void attackSpeech(){
-        System.out.println("YOU: I choose you, " + getCurrentPokemon().getName() + "!");
+    public String attackSpeech(){
+        return "YOU: I choose you, " + getCurrentPokemon().getName() + "!";
     }
 
     /**
@@ -120,8 +120,8 @@ public class Player extends Trainer{
      * prints celebratory speech
      *
      */
-    public void winSpeech(){
-        System.out.println("YOU: I won!");
+    public String winSpeech(){
+        return "YOU: I won!";
     }
 
     /**
@@ -129,8 +129,8 @@ public class Player extends Trainer{
      * prints speech if player loses
      *
      */
-    public void lossSpeech(){
-        System.out.println("YOU: Oh no! I lost!");
+    public String lossSpeech(){
+        return "YOU: Oh no! I lost!";
     }
 
     /**
@@ -196,39 +196,43 @@ public class Player extends Trainer{
                 return true;
             }
         }
-        return false
+        return false;
     }
     
     public char goNorth(Map m){
-        if(setLocation(location.getX(), location.getY() - 1){
-            m.revealLocation(location);
-            return m.getCharAt(location);
+        Point newLocation = new Point((int)location.getX(), (int)location.getY() - 1);
+        if(setLocation(newLocation)){
+            m.reveal(location);
+            return m.getCharAtLoc(location);
         }
-        return null;
+        return 'e';
     }
     
     char goSouth(Map m){
-    	if(setLocation(location.getX(), location.getY() + 1){
-            m.revealLocation(location);
-            return m.getCharAt(location);
+    	Point newLocation = new Point((int)location.getX(), (int)location.getY() + 1);
+        if(setLocation(newLocation)){
+            m.reveal(location);
+            return m.getCharAtLoc(location);
         }
-        return null;
+        return 'e';
     }
     
-    char goEast(Map m){
-    	if(setLocation(location.getX() - 1, location.getY()){
-            m.revealLocation(location);
-            return m.getCharAt(location);
-        }
-        return null;
+    public char goEast(Map m){
+    	Point newLocation = new Point((int)location.getX()  + 1, (int)location.getY());
+        if(setLocation(newLocation)){
+            m.reveal(location);
+            return m.getCharAtLoc(location);
+        }   
+        return 'e';
     }
     
-    char goWest(Map m){
-    	if(setLocation(location.getX() + 1, location.getY()){
-            m.revealLocation(location);
-            return m.getCharAt(location);
+    public char goWest(Map m){
+    	Point newLocation = new Point((int)location.getX() - 1, (int)location.getY());
+        if(setLocation(newLocation)){
+            m.reveal(location);
+            return m.getCharAtLoc(location);
         }
-        return null;
+        return 'e';
     }
 }
 

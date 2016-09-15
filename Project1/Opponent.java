@@ -31,22 +31,12 @@ public class Opponent extends Trainer{
     }
 
     /**
-     * getOpptype()
-     *
-     * @return  opponent's type
-     */
-    public int getOpptype(){
-        return type;
-    }
-
-
-    /**
      * attackSpeech()
      * prints speech at start of battle
      *
      */
-    public void attackSpeech(){
-        return attackSpeech;
+    public String attackSpeech(){
+        return atkSpeech;
     }
 
     /**
@@ -54,7 +44,7 @@ public class Opponent extends Trainer{
      * prints speech given at Opponent win
      *
      */
-    public void winSpeech(){
+    public String winSpeech(){
         return winSpeech;
     }
 

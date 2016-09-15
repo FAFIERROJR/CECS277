@@ -34,21 +34,21 @@ public abstract class Trainer extends Entity{
      * prints speech at start of battle
      *
      */
-    public abstract void attackSpeech();
+    public abstract String attackSpeech();
         
     /**
      * winSpeech()
      * prints celebratory speech
      *
      */
-    public abstract void winSpeech();
+    public abstract String winSpeech();
     
     /**
      * lossSpeech()
      * prints speech if player loses
      *
      */
-    public abstract void lossSpeech();
+    public abstract String lossSpeech();
     
     /**
      * chooseStyle()

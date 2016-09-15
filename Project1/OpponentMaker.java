@@ -20,18 +20,25 @@ public class OpponentMaker{
 		String winSpeech;
 		String lossSpeech;
 		String fileName = "OpponentList.txt";
+        opponentList = new ArrayList<Opponent>();
 		
 		try{
 			Scanner reader = new Scanner(new File(fileName));
 
 			while(reader.hasNext()){
-				name = reader.next();
+				name = reader.nextLine();
+                System.out.println("name = " + name);
 				hp = reader.nextInt();
+                reader.nextLine();
 				atkSpeech = reader.nextLine();
+                System.out.println(atkSpeech);
 				lossSpeech = reader.nextLine();
+                System.out.println(lossSpeech);
 				winSpeech = reader.nextLine();
+                System.out.println(winSpeech);
 				
-				opponentList.add(new Opponent(name, hp, atkSpeech, lossSpeech, winSpeech));
+                Opponent opp = new Opponent(name, hp, atkSpeech, lossSpeech, winSpeech);
+				opponentList.add(opp);
 			}
 			reader.close();
 		}
@@ -48,7 +55,7 @@ public class OpponentMaker{
      */
     public Opponent makeRandomOpponent(){
         Opponent opponent;
-        Pokemon pokemon;
+        Pokemon pokemon = null;
         Pokemon pokemon2 = null;
         int random;
         
