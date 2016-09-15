@@ -20,7 +20,7 @@ public class PokemonBattles{
      */
     private static void trainerBattle(Trainer attacker, Trainer defender){
         int hit = attacker.battle();
-        hit = (int)(hit * fightTable[attacker.getCurrentPokemon().getType()][defender.getCurrentPokemon().getType()]);
+        hit = (int)(hit * fightTable[defender.getCurrentPokemon().getType()][attacker.getCurrentPokemon().getType()]);
         System.out.println("\n" + defender.getCurrentPokemon().getName() + " was hit for " + hit + " points");
         defender.getCurrentPokemon().loseHp(hit);
     }

@@ -14,7 +14,7 @@ public class PokemonGame{
     public static void main(String[] args){
         int startPoke;
         Player player = new Player("Ash", 80);
-        int areaNum = 1;
+        int areaNum = 3;
         Map map = new Map();
         int nothings = 0;
         OpponentMaker oppMaker = new OpponentMaker();
@@ -45,7 +45,7 @@ public class PokemonGame{
                 /* Main menu */
                 displayMainMenu();
                 mainChoice = CheckInput.checkInt();
-                if(mainChoice < 1 || mainChoice > 6){
+                if(mainChoice < 1 || mainChoice > 8){
                     System.out.println("That's not an option. Try again.");
                 }
             }while(mainChoice < 1 || mainChoice > 8);
@@ -83,9 +83,11 @@ public class PokemonGame{
                     displayItems(player);
                     System.out.println("Pokemon:");
                     player.listPokemon();
+                    break;
                 /* quit */
                 case 8:
                     System.out.println("Thanks for playing!");
+                    save(player, map);
                     System.exit(0);
                     break;
             }
@@ -94,7 +96,7 @@ public class PokemonGame{
             if(pointChar != 'v'){
                 switch(pointChar){
                     case 's':
-                        System.out.println("You're in a new Area");
+                        System.out.println("You're back to where you started");
                         break;
 
                     case 'f':
@@ -104,6 +106,7 @@ public class PokemonGame{
                             System.exit(0);
                         }
                         map.generateArea(areaNum);
+                        player.setLocation(map.findStartLocation());
                         break;
 
                     case 'n':
@@ -120,12 +123,12 @@ public class PokemonGame{
 
                     case 'o':
                         Opponent opponent = oppMaker.makeRandomOpponent();
-                        pvpBattle(player,opponent);
+                        pvpBattle(player,opponent, map);
                         break;
 
                     case 'w':
                         Pokemon opp = PokemonMaker.makeWildPokemon();
-                        pveBattle(player,opp);
+                        pveBattle(player,opp, map);
                         break;
 
                     case 'c':
@@ -145,7 +148,7 @@ public class PokemonGame{
      * @param opp       the cpu trainer
      *
      */
-    private static void pvpBattle(Player player, Opponent opp){
+    private static void pvpBattle(Player player, Opponent opp, Map m){
         boolean run = false;
         int mainChoice;
         /* loop unti win, loss, run, or quit */
@@ -195,6 +198,7 @@ public class PokemonGame{
                     opp.winSpeech();
                     player.lossSpeech();
                     System.out.println("All of your pokemon have fainted. Game Over. Thanks for Playing!\n");
+                    save(player, map);
                     System.exit(0);
                 }
                 chooseNewPokemon(player);
@@ -203,6 +207,7 @@ public class PokemonGame{
             if(opp.getCurrentPokemon().getHp() <= 0){
                 if(opp.getNextCurPokemon() ==-1){
                     pvpWin(player, opp);
+                    map.removeOppAtLoc(player.getLocation());
                     run = true;
                 }
                 else{
@@ -222,7 +227,7 @@ public class PokemonGame{
      * @param opp       the cpu Pokemon
      *
      */
-    private static void pveBattle(Player player, Pokemon opp){
+    private static void pveBattle(Player player, Pokemon opp, Map m){
         boolean run = false;
         /* loop unti win, loss, run, or quit */
         while(!run){
@@ -257,6 +262,7 @@ public class PokemonGame{
                 case 5:
                     if(catchPokemon(player,opp)){
                         System.out.println("You've caught a " + opp.getName() + "!");
+                        map.removeOppAtLoc(player.getLocation());
                         run = true;
                     }
                     else{
@@ -274,6 +280,7 @@ public class PokemonGame{
             if(player.getCurrentPokemon().getHp() <= 0){
                 if(player.getNextCurPokemon() == -1){
                     System.out.println("All of your pokemon have fainted. Game Over. Thanks for Playing!\n");
+                    save(player, map);
                     System.exit(0);
                 }
                 chooseNewPokemon(player);
@@ -281,6 +288,7 @@ public class PokemonGame{
             /* player win */
             if(opp.getHp() <= 0){
                 pveWin(player, opp);
+                map.removeOppAtLoc(player.getLocation());
                 run = true;
             }
         }
@@ -536,14 +544,19 @@ public class PokemonGame{
         int choice;
 
         do{
-            System.out.println("You're in a city. What would you like to visit\n1. Pokecenter\n2.Pokemart\nAny other integer to leave");
+            System.out.println("You're in a city. What would you like to visit\n1. Pokecenter\n2. Pokemart\nAny other integer to leave");
             choice = CheckInput.checkInt();
             if(choice == 1){
                 pokeCenter(player);
             }
             if(choice == 2){
+            	displayShopMenu();
                 shop(player);
             }
         }while(choice == 1 || choice == 2);
-     }
+   	}
+
+   	private static void save(Player player){
+   				
+   	}
 }

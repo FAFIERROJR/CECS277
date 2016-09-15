@@ -17,6 +17,7 @@ public class Map{
             for(int i = 0; i < 5; i++){
                 for(int j = 0; j < 5; j++){
                     map[i][j] = reader.next().charAt(0);
+                    System.out.print(map[i][j]);
                 }
             }
         }
@@ -32,9 +33,8 @@ public class Map{
 	public void displayMap(Point p){
         char point;
 
-	    System.out.println("-------");
-        System.out.print("l");
         for(int i = 0; i < 5; i++){
+            System.out.print("|");
             for(int j = 0; j < 5; j++){
                 if(revealed[i][j] == true){
                     point = map[i][j];
@@ -47,16 +47,17 @@ public class Map{
                 }
                 System.out.print(point + " ");
             }
+            System.out.print("|");
             System.out.print("\n");
         }
-        System.out.println("-------");
 	}
 	
 	public Point findStartLocation(){
-	    for(int i = 0; i < 4; i++){
-            for(int j = 0; j < 4; j++){
+	    for(int i = 0; i < 5; i++){
+            for(int j = 0; j < 5; j++){
                 if(map[i][j] == 's'){
                     Point p = new Point(i,j);
+                    System.out.println(i +  " " + j);
                     return p;
                 }
             }

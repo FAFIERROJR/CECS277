@@ -68,7 +68,7 @@ public class OpponentMaker{
         if(opponent.getName().equals("Lass")){
             pokemon = PokemonMaker.makeTypePokemon(2);
         }
-        else if(opponent.getName().equals("Bug Catch")){
+        else if(opponent.getName().equals("Bug Catcher")){
             pokemon = PokemonMaker.makeTypePokemon(1);
         }
         else if(opponent.getName().equals("Team Rocket")){

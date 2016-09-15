@@ -200,7 +200,7 @@ public class Player extends Trainer{
     }
     
     public char goNorth(Map m){
-        Point newLocation = new Point((int)location.getX(), (int)location.getY() - 1);
+        Point newLocation = new Point((int)location.getX() -1, (int)location.getY());
         if(setLocation(newLocation)){
             m.reveal(location);
             return m.getCharAtLoc(location);
@@ -209,7 +209,7 @@ public class Player extends Trainer{
     }
     
     char goSouth(Map m){
-    	Point newLocation = new Point((int)location.getX(), (int)location.getY() + 1);
+    	Point newLocation = new Point((int)location.getX() + 1, (int)location.getY());
         if(setLocation(newLocation)){
             m.reveal(location);
             return m.getCharAtLoc(location);
@@ -218,7 +218,7 @@ public class Player extends Trainer{
     }
     
     public char goEast(Map m){
-    	Point newLocation = new Point((int)location.getX()  + 1, (int)location.getY());
+    	Point newLocation = new Point((int)location.getX(), (int)location.getY() + 1);
         if(setLocation(newLocation)){
             m.reveal(location);
             return m.getCharAtLoc(location);
@@ -227,7 +227,7 @@ public class Player extends Trainer{
     }
     
     public char goWest(Map m){
-    	Point newLocation = new Point((int)location.getX() - 1, (int)location.getY());
+    	Point newLocation = new Point((int)location.getX(), (int)location.getY() - 1);
         if(setLocation(newLocation)){
             m.reveal(location);
             return m.getCharAtLoc(location);
