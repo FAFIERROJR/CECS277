@@ -9,6 +9,7 @@
  */
 
 import java.lang.Math;
+import java.io.*;
 
 public class PokemonGame{
     public static void main(String[] args){
@@ -123,6 +124,8 @@ public class PokemonGame{
 
                     case 'o':
                         Opponent opponent = oppMaker.makeRandomOpponent();
+                        System.out.println(opp.attackSpeech());
+                        System.out.println(player.attackSpeech());
                         pvpBattle(player,opponent, map);
                         break;
 
@@ -195,8 +198,8 @@ public class PokemonGame{
             /* player loss */
             if(player.getCurrentPokemon().getHp() <= 0){
                 if(player.getNextCurPokemon() == -1){
-                    opp.winSpeech();
-                    player.lossSpeech();
+                    System.out.println(opp.winSpeech());
+                    System.out.println(player.lossSpeech());
                     System.out.println("All of your pokemon have fainted. Game Over. Thanks for Playing!\n");
                     save(player, map);
                     System.exit(0);
@@ -411,8 +414,8 @@ public class PokemonGame{
         int xpGain = 100 + (int)(50 * Math.random());
         int money = (100 + (int)(50 * Math.random() * 2)) * -1;
 
-        player.winSpeech();
-        opp.lossSpeech();
+        System.out.println(player.winSpeech());
+        System.out.println(opp.lossSpeech());
         System.out.format("%s fainted. You win %d Money. %s gained %d EXP\n", opp.getCurrentPokemon().getName(),
         money * -1, player.getCurrentPokemon().getName(), xpGain);
         player.getCurrentPokemon().gainExp(xpGain);
@@ -559,4 +562,7 @@ public class PokemonGame{
    	private static void save(Player player){
    				
    	}
+
+   	private static Player load();
+   		Objec
 }

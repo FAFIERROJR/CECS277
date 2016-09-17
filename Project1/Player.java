@@ -6,9 +6,10 @@
  * @author  Francisco Fierro
  *
  */
+import java.io.*;
 import java.awt.Point;
 
-public class Player extends Trainer{
+public class Player extends Trainer implements Serializable{
     /** number of potions */
     private int potions;
     /** number of pokeballs*/
