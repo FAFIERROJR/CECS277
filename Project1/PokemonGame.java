@@ -15,22 +15,40 @@ public class PokemonGame{
     public static void main(String[] args){
         int startPoke;
         Player player = new Player("Ash", 80);
-        int areaNum = 3;
+        int areaNum = 1;
         Map map = new Map();
         int nothings = 0;
         OpponentMaker oppMaker = new OpponentMaker();
+        File playerFile = new File("player.dat");
+        int loadChoice = 2;
 
-        //choose a pokemon
-        do{
-            /* choosing a starter pokemon */
-            System.out.println("Hey Ash. Choose a pokemon");
-            pokeMenu();
-            startPoke = CheckInput.checkInt();
-            if(startPoke < 1 || startPoke > 4){
-                System.out.println("That's not an option. Try again.");
+        if(playerFile.exists()){
+            System.out.println("Saved game found\n1. Continue\n2. New Game");
+            do{
+                loadChoice = CheckInput.checkInt();
+                if(loadChoice < 1 || loadChoice > 2){
+                    System.out.println("Thats not an option");
+                }
+            }while(loadChoice < 1 || loadChoice > 2);
+
+            if(loadChoice == 1){
+                load(player);
             }
-        }while(startPoke < 1 || startPoke > 4);
-        player.addPokemon(PokemonMaker.makeStartPokemon(startPoke));
+
+        }
+        if(loadChoice == 2){
+                //choose a pokemon
+            do{
+                    /* choosing a starter pokemon */
+                System.out.println("Hey Ash. Choose a pokemon");
+                pokeMenu();
+                    startPoke = CheckInput.checkInt();
+                if(startPoke < 1 || startPoke > 4){
+                        System.out.println("That's not an option. Try again.");
+                }
+            }while(startPoke < 1 || startPoke > 4);
+            player.addPokemon(PokemonMaker.makeStartPokemon(startPoke));
+        }
 
         //generate Area
         map.generateArea(areaNum);
@@ -88,7 +106,7 @@ public class PokemonGame{
                 /* quit */
                 case 8:
                     System.out.println("Thanks for playing!");
-                    save(player, map);
+                    save(player);
                     System.exit(0);
                     break;
             }
@@ -106,6 +124,7 @@ public class PokemonGame{
                             System.out.println("Congratularations. You win.");
                             System.exit(0);
                         }
+                        save(player);
                         map.generateArea(areaNum);
                         player.setLocation(map.findStartLocation());
                         break;
@@ -124,7 +143,7 @@ public class PokemonGame{
 
                     case 'o':
                         Opponent opponent = oppMaker.makeRandomOpponent();
-                        System.out.println(opp.attackSpeech());
+                        System.out.println(opponent.attackSpeech());
                         System.out.println(player.attackSpeech());
                         pvpBattle(player,opponent, map);
                         break;
@@ -151,7 +170,7 @@ public class PokemonGame{
      * @param opp       the cpu trainer
      *
      */
-    private static void pvpBattle(Player player, Opponent opp, Map m){
+    private static void pvpBattle(Player player, Opponent opp, Map map){
         boolean run = false;
         int mainChoice;
         /* loop unti win, loss, run, or quit */
@@ -190,6 +209,7 @@ public class PokemonGame{
                 /* quit */
                 case 6:
                     System.out.println("Thanks for playing!");
+                    save(player);
                     System.exit(0);
                     break;
             }
@@ -201,7 +221,6 @@ public class PokemonGame{
                     System.out.println(opp.winSpeech());
                     System.out.println(player.lossSpeech());
                     System.out.println("All of your pokemon have fainted. Game Over. Thanks for Playing!\n");
-                    save(player, map);
                     System.exit(0);
                 }
                 chooseNewPokemon(player);
@@ -230,7 +249,7 @@ public class PokemonGame{
      * @param opp       the cpu Pokemon
      *
      */
-    private static void pveBattle(Player player, Pokemon opp, Map m){
+    private static void pveBattle(Player player, Pokemon opp, Map map){
         boolean run = false;
         /* loop unti win, loss, run, or quit */
         while(!run){
@@ -275,6 +294,7 @@ public class PokemonGame{
                 /* quit */
                 case 6:
                     System.out.println("Thanks for playing!");
+                    save(player);
                     System.exit(0);
                     break;
             }
@@ -283,7 +303,6 @@ public class PokemonGame{
             if(player.getCurrentPokemon().getHp() <= 0){
                 if(player.getNextCurPokemon() == -1){
                     System.out.println("All of your pokemon have fainted. Game Over. Thanks for Playing!\n");
-                    save(player, map);
                     System.exit(0);
                 }
                 chooseNewPokemon(player);
@@ -560,9 +579,34 @@ public class PokemonGame{
    	}
 
    	private static void save(Player player){
-   				
+   		try{
+            ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream("player.dat"));
+
+            writer.writeObject(player);
+            writer.close();
+        }
+        catch(IOException e){
+            System.out.println("Error writing to file player.dat");
+        }
    	}
 
-   	private static Player load();
-   		Objec
+   	private static Player load(Player player){
+
+        try{
+            File playerFile = new File("player.dat");
+            if(playerFile.exists()){
+                ObjectInputStream reader = new ObjectInputStream(new FileInputStream(playerFile));
+
+                player = (Player)reader.readObject();
+                reader.close();
+            }
+        }
+        catch(IOException e){
+            System.out.println("Error Reading File player.dat");
+        }
+        catch(ClassNotFoundException e){
+            System.out.println("Error: Class Player not found");
+        }
+        return player;
+    }
 }

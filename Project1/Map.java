@@ -17,7 +17,9 @@ public class Map{
             for(int i = 0; i < 5; i++){
                 for(int j = 0; j < 5; j++){
                     map[i][j] = reader.next().charAt(0);
-                    System.out.print(map[i][j]);
+                    if(map[i][j] == 'c'){
+                        revealed[i][j] = true;
+                    }
                 }
             }
         }
@@ -57,7 +59,6 @@ public class Map{
             for(int j = 0; j < 5; j++){
                 if(map[i][j] == 's'){
                     Point p = new Point(i,j);
-                    System.out.println(i +  " " + j);
                     return p;
                 }
             }

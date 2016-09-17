@@ -5,8 +5,9 @@
  * @author Francisco Fierro
  */
 import java.lang.Math;
+import java.io.*;
 
-public abstract class Pokemon extends Entity{
+public abstract class Pokemon extends Entity implements Serializable{
     /** the Pokemon's level */
     private int level;
     /** the Pokemon's current exp */

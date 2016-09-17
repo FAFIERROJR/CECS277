@@ -27,15 +27,14 @@ public class OpponentMaker{
 
 			while(reader.hasNext()){
 				name = reader.nextLine();
-                System.out.println("name = " + name);
 				hp = reader.nextInt();
                 reader.nextLine();
 				atkSpeech = reader.nextLine();
-                System.out.println(atkSpeech);
-				lossSpeech = reader.nextLine();
-                System.out.println(lossSpeech);
+                atkSpeech = atkSpeech.replace('#', '\n');
+                lossSpeech = reader.nextLine();
+                lossSpeech = lossSpeech.replace('#', '\n');
 				winSpeech = reader.nextLine();
-                System.out.println(winSpeech);
+                winSpeech = winSpeech.replace('#', '\n');
 				
                 Opponent opp = new Opponent(name, hp, atkSpeech, lossSpeech, winSpeech);
 				opponentList.add(opp);

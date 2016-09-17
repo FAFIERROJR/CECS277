@@ -6,7 +6,10 @@
  * @author Francisco Fierro
  *
  */
-public abstract class Entity{
+
+import java.io.*;
+
+public abstract class Entity implements Serializable{
     /** the name of the entity */
     private String name;
     /** its hit points */

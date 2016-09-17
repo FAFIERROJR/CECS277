@@ -8,8 +8,9 @@
  */
 
 import java.util.*;
+import java.io.*;
 
-public abstract class Trainer extends Entity{
+public abstract class Trainer extends Entity implements Serializable{
     /** holds pokemon in party */
     private ArrayList<Pokemon> pokemon;
     /** holds index of currently active Pokemon */
