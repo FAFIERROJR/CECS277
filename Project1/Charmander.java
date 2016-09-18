@@ -8,7 +8,7 @@
 import java.lang.Math;
 import java.io.*;
 
-public class Charmander extends Pokemon implements Fire, Serializable{
+public class Charmander extends Pokemon implements Fire{
 
     /**
      * Charmander() 

@@ -1,15 +1,40 @@
+
 import java.util.*;
 import java.io.*;
 import java.awt.*;
 
-public class Map{
+/**
+ * Class Map
+ * handles the management of game areas
+ * loading from file
+ * displaying area
+ * updating revealed locations
+ * removing defeated opponents/wild pokemon
+ *
+ * @author Francisco Fierro
+ */
+public class Map implements Serializable{
 	char [][] map;
 	boolean [][] revealed;
-    
+
+    /**
+     * Map()
+     * basic map constructor
+     * initialized arrays to empty 5x5 arrays
+     * 
+     * @return the newly constructed Map object
+     */
     public Map(){
         map = new char[5][5];
         revealed = new boolean[5][5];
 	}
+
+    /**
+     * generateArea()
+     * loads an area into map array from file
+     * 
+     * @param areaNum the number delineating a particular area
+     */
 	public void generateArea(int areaNum){
         try{
             Scanner reader = new Scanner(new File("Area" + areaNum + ".txt"));
@@ -28,6 +53,13 @@ public class Map{
         }
 	}
 	
+    /**
+     * getCharAtLoc()
+     * returns the character at given location
+     * 
+     * @param  p the given location
+     * @return   the char at given location
+     */
 	public char getCharAtLoc(Point p){
 	    return map[(int)p.getX()][(int)p.getY()];
 	}

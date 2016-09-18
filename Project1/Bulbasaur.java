@@ -7,7 +7,7 @@
 
 import java.io.*;
 
-public class Bulbasaur extends Pokemon implements Grass, Serializable{
+public class Bulbasaur extends Pokemon implements Grass{
    
     /**
       * Bulbasaur() simple constructor

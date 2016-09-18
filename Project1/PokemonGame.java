@@ -32,7 +32,7 @@ public class PokemonGame{
             }while(loadChoice < 1 || loadChoice > 2);
 
             if(loadChoice == 1){
-                load(player);
+                player = loadPlayer(player);
             }
 
         }
@@ -106,7 +106,7 @@ public class PokemonGame{
                 /* quit */
                 case 8:
                     System.out.println("Thanks for playing!");
-                    save(player);
+                    savePlayer(player);
                     System.exit(0);
                     break;
             }
@@ -124,7 +124,7 @@ public class PokemonGame{
                             System.out.println("Congratularations. You win.");
                             System.exit(0);
                         }
-                        save(player);
+                        savePlayer(player);
                         map.generateArea(areaNum);
                         player.setLocation(map.findStartLocation());
                         break;
@@ -209,7 +209,7 @@ public class PokemonGame{
                 /* quit */
                 case 6:
                     System.out.println("Thanks for playing!");
-                    save(player);
+                    savePlayer(player);
                     System.exit(0);
                     break;
             }
@@ -294,7 +294,7 @@ public class PokemonGame{
                 /* quit */
                 case 6:
                     System.out.println("Thanks for playing!");
-                    save(player);
+                    savePlayer(player);
                     System.exit(0);
                     break;
             }
@@ -562,6 +562,12 @@ public class PokemonGame{
         System.out.println("Thanks for playing!");
      }
 
+
+     /**
+      * simCity()
+      * handles the city event
+      * @param player the player character
+      */
      private static void simCity(Player player){
         int choice;
 
@@ -578,7 +584,12 @@ public class PokemonGame{
         }while(choice == 1 || choice == 2);
    	}
 
-   	private static void save(Player player){
+    /**
+     * savePlayer()
+     * saves player state as player.dat
+     * @param player the player character
+     */
+   	private static void savePlayer(Player player){
    		try{
             ObjectOutputStream writer = new ObjectOutputStream(new FileOutputStream("player.dat"));
 
@@ -590,7 +601,13 @@ public class PokemonGame{
         }
    	}
 
-   	private static Player load(Player player){
+    /**
+     * loadPlayer()
+     * loads Player object from player.dat
+     * @param  player the player character
+     * @return        the loaded player object
+     */
+   	private static Player loadPlayer(Player player){
 
         try{
             File playerFile = new File("player.dat");

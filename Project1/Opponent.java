@@ -32,7 +32,7 @@ public class Opponent extends Trainer{
 
     /**
      * attackSpeech()
-     * prints speech at start of battle
+     * returns speech at start of battle
      *
      */
     public String attackSpeech(){
@@ -41,7 +41,7 @@ public class Opponent extends Trainer{
 
     /**
      * winSpeech()
-     * prints speech given at Opponent win
+     * returns speech given at Opponent win
      *
      */
     public String winSpeech(){
@@ -51,7 +51,7 @@ public class Opponent extends Trainer{
 
     /**
      * lossSpeech()
-     * prints speech if Opponent loses
+     * returns speech if Opponent loses
      *
      */
     public String lossSpeech(){
