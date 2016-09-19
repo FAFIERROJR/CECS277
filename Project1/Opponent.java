@@ -8,20 +8,21 @@
 import java.lang.Math;
 
 public class Opponent extends Trainer{
-
+    /** the speech printed at beginning of battle */
     private String atkSpeech;
-	
+    /** speech to be printed at loss */
 	private String lossSpeech;
-	
+	/** speech to be printed at victory */
 	private String winSpeech;
 
     /**
      * Opponent()
-     * Basic constructor for Opponent
-     *
-     * @param name  Name of opponent
-     * @param type  unique to particular opponent
-     *
+     * basic constructor for Opponent types
+     * @param  n name
+     * @param  h hitpoints
+     * @param  a attack speech
+     * @param  l loss speech
+     * @param  w win speech
      */
     public Opponent(String n, int h, String a, String l, String w){
         super(n, h);
@@ -34,6 +35,7 @@ public class Opponent extends Trainer{
      * attackSpeech()
      * returns speech at start of battle
      *
+     * @return opp speech at start of battle
      */
     public String attackSpeech(){
         return atkSpeech;
@@ -43,6 +45,7 @@ public class Opponent extends Trainer{
      * winSpeech()
      * returns speech given at Opponent win
      *
+     * @return opp speech when 
      */
     public String winSpeech(){
         return winSpeech;
@@ -53,6 +56,7 @@ public class Opponent extends Trainer{
      * lossSpeech()
      * returns speech if Opponent loses
      *
+     * @return opp speech when opp loses
      */
     public String lossSpeech(){
         return lossSpeech;

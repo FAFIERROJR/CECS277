@@ -12,7 +12,14 @@ import java.io.*;
 
 public class OpponentMaker{
 	private ArrayList<Opponent> opponentList;
-	
+
+	/**
+     * OpponentMaker()
+     * Constructor
+     * Initializes ArrayList<Opponent>
+     * with opponent templates read from file
+     * "OpponentList.txt"
+     */
 	public OpponentMaker(){
 		int hp;
 		String name;
@@ -49,6 +56,7 @@ public class OpponentMaker{
     /**
      * makeRandomOpponent()
      * makes and returns a random opponent
+     * from the ArrayList templates
      *
      * @return  the randomly generated opponent
      */

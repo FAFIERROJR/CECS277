@@ -30,7 +30,7 @@ public class PokemonBattles{
      * performs a round of battle using trainerBattle()
      *
      * @param player    the player character
-     * @param player    the CPU opponent
+     * @param opponent    the CPU opponent
      *
      */
     public static void opponentBattle(Player player, Opponent opponent){

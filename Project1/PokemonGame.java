@@ -15,12 +15,12 @@ public class PokemonGame{
     public static void main(String[] args){
         int startPoke;
         Player player = new Player("Ash", 80);
-        int areaNum = 1;
         Map map = new Map();
         int nothings = 0;
         OpponentMaker oppMaker = new OpponentMaker();
         File playerFile = new File("player.dat");
         int loadChoice = 2;
+        int areaNum;
 
         if(playerFile.exists()){
             System.out.println("Saved game found\n1. Continue\n2. New Game");
@@ -51,6 +51,7 @@ public class PokemonGame{
         }
 
         //generate Area
+        areaNum = player.getLevel();
         map.generateArea(areaNum);
         player.setLocation(map.findStartLocation());
 
@@ -125,6 +126,8 @@ public class PokemonGame{
                             System.exit(0);
                         }
                         savePlayer(player);
+                        player.incLevel();
+                        areaNum = player.getLevel();
                         map.generateArea(areaNum);
                         player.setLocation(map.findStartLocation());
                         break;

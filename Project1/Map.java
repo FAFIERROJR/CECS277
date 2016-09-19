@@ -21,8 +21,6 @@ public class Map implements Serializable{
      * Map()
      * basic map constructor
      * initialized arrays to empty 5x5 arrays
-     * 
-     * @return the newly constructed Map object
      */
     public Map(){
         map = new char[5][5];
@@ -42,6 +40,7 @@ public class Map implements Serializable{
             for(int i = 0; i < 5; i++){
                 for(int j = 0; j < 5; j++){
                     map[i][j] = reader.next().charAt(0);
+                    revealed[i][j] = false;
                     if(map[i][j] == 'c'){
                         revealed[i][j] = true;
                     }
@@ -64,6 +63,13 @@ public class Map implements Serializable{
 	    return map[(int)p.getX()][(int)p.getY()];
 	}
 	
+    /**
+     * displayMap()
+     * prints the current area 
+     * with player's current location marked as *
+     * 
+     * @param p the player's location
+     */
 	public void displayMap(Point p){
         char point;
 
@@ -86,6 +92,13 @@ public class Map implements Serializable{
         }
 	}
 	
+    /**
+     * findStartLocation()
+     * finds and returns the designated
+     * player start location
+     * 
+     * @return the start location
+     */
 	public Point findStartLocation(){
 	    for(int i = 0; i < 5; i++){
             for(int j = 0; j < 5; j++){
@@ -98,10 +111,21 @@ public class Map implements Serializable{
         return null;
 	}
 	
+    /**
+     * reveal()
+     * 
+     * @param p the point to reveal
+     */
 	public void reveal(Point p){
 	    revealed[(int)p.getX()][(int)p.getY()] = true;
 	}
 	
+	/**
+	 * removeOppAtLoc()
+	 * removes an opponent from a location
+	 * and replaces with nothing 'n'
+	 * @param p the point from which to remove opponent
+	 */
 	public void removeOppAtLoc(Point p){
         map[(int)p.getX()][(int)p.getY()] = 'n';
     }

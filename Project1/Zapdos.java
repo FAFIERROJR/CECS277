@@ -68,7 +68,7 @@ public class Zapdos extends Pokemon implements Electric{
      * performs Thunder Shock, displays, and returns hit value
      *
      *
-     * @ return     this attack's hit value
+     * @return     this attack's hit value
      *
      */
     public int thunderShock(){
@@ -81,7 +81,7 @@ public class Zapdos extends Pokemon implements Electric{
      * thunderbolt()
      * performs Thunderbolt, displays, and returns hit value
      *
-     * @ return     this attack's hit value
+     * @return     this attack's hit value
      *
      */
     public int thunderbolt(){
@@ -94,7 +94,7 @@ public class Zapdos extends Pokemon implements Electric{
      * thunderPunch();
      * performs Thunder Punch, displays, and returns hit value
      *
-     * @ return     this attack's hit value
+     * @return     this attack's hit value
      *
      */
     public int thunderPunch(){

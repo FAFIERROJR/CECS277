@@ -21,7 +21,7 @@ public abstract class Trainer extends Entity implements Serializable{
      * Basic constructor for Trainer
      *
      * @param name  name to which to set Trainer's name
-     * @param name  hit points to set for Trainer
+     * @param hp  hit points to set for Trainer
      *
      */
     public Trainer(String name, int hp){

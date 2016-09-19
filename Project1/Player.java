@@ -16,6 +16,8 @@ public class Player extends Trainer implements Serializable{
     private int pokeballs;
     /** amount of money in wallet */
     private int money;
+
+    private int level;
 	
 	private Point location;
     /**
@@ -32,6 +34,7 @@ public class Player extends Trainer implements Serializable{
         potions = 5;
         money = 500;
         pokeballs = 10;
+        level = 1;
     }
 
     /**
@@ -185,11 +188,24 @@ public class Player extends Trainer implements Serializable{
         }while(move < 1 || move > 3);
         return move;
     }
+
+    /**
+     * getLocation()
+     * returns current location of player
+     * @return current location of player as Point
+     */
     
     public Point getLocation(){
     	return location.getLocation();
     }
-    
+
+    /**
+     * setLocation()
+     * sets the location of player to given
+     * Point
+     * @param  p the point to which to set the player's current location
+     * @return   true if the successfully set, else false
+     */
     public boolean setLocation(Point p){
         if(p.getX() > -1 && p.getX() < 5){
             if(p.getY() > -1 && p.getY() < 5){
@@ -199,7 +215,14 @@ public class Player extends Trainer implements Serializable{
         }
         return false;
     }
-    
+
+    /**
+     * goNorth()
+     * moves the player up a point on the map
+     * 
+     * @param  m the Map instance
+     * @return   the char at the new location, or meaningless char if out of bounds
+     */
     public char goNorth(Map m){
         Point newLocation = new Point((int)location.getX() -1, (int)location.getY());
         if(setLocation(newLocation)){
@@ -208,7 +231,14 @@ public class Player extends Trainer implements Serializable{
         }
         return 'e';
     }
-    
+
+    /**
+     * goSouth()
+     * moves the player up a point on the map
+     * 
+     * @param  m the Map instance
+     * @return   the char at the new location, or meaningless char if out of bounds
+     */
     char goSouth(Map m){
     	Point newLocation = new Point((int)location.getX() + 1, (int)location.getY());
         if(setLocation(newLocation)){
@@ -217,7 +247,14 @@ public class Player extends Trainer implements Serializable{
         }
         return 'e';
     }
-    
+
+    /**
+     * goEast()
+     * moves the player down to the right a point on the map
+     * 
+     * @param  m the Map instance
+     * @return   the char at the new location, or meaningless char if out of bounds
+     */
     public char goEast(Map m){
     	Point newLocation = new Point((int)location.getX(), (int)location.getY() + 1);
         if(setLocation(newLocation)){
@@ -227,6 +264,13 @@ public class Player extends Trainer implements Serializable{
         return 'e';
     }
     
+    /**
+     * goWest()
+     * moves the player to the left a point on the map
+     * 
+     * @param  m the Map instance
+     * @return   the char at the new location, or meaningless char if out of bounds
+     */
     public char goWest(Map m){
     	Point newLocation = new Point((int)location.getX(), (int)location.getY() - 1);
         if(setLocation(newLocation)){
@@ -234,6 +278,25 @@ public class Player extends Trainer implements Serializable{
             return m.getCharAtLoc(location);
         }
         return 'e';
+    }
+
+    /**
+     * getLevel()
+     * returns the number of the area the player
+     * is currently or was most recently at
+     * 
+     * @return the player's area
+     */
+    public int getLevel(){
+        return level;
+    }
+
+    /**
+     * incLevel()
+     * increments the players level(area)
+     */
+    public void incLevel(){
+        level++;
     }
 }
 
