@@ -6,7 +6,7 @@ MAIN = PokemonRPS
 build:
 	javac ${SRC}
 
-play:
+play: ${SRC}
 	java PokemonRPS
 
 clean:

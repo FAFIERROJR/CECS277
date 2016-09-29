@@ -1,6 +1,6 @@
-import java.util.*;
+import java.io.*;
 
-public class Computer{
+public class Computer implements Serializable{
 
 	private HashMap<Pattern, Integer> map;
 
@@ -26,7 +26,7 @@ public class Computer{
 		int choice = 0;
 
 		if(pString.length() < 4){
-			choice = (int)Math.random() * 3;
+			choice = (int)(Math.random() * 3);
 		}
 		else{
 			Pattern p = new Pattern(pString);

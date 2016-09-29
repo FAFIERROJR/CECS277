@@ -12,6 +12,8 @@ public class PokemonRPS{
 
 		System.out.println("Welcome to Pokemon: Rock, Paper, Scissors");
 		do{
+
+			cChoice = cpu.makePrediction(p);
 			displayMenu();
 			pInput = CheckInput.checkIntRange(1,4) - 1;
 
@@ -24,6 +26,7 @@ public class PokemonRPS{
 					break;
 				case 2:
 					pChoice = 'g';
+					break;
 				case 3:
 					System.out.println("Thanks for playing!");
 					System.exit(0);
@@ -37,7 +40,6 @@ public class PokemonRPS{
 				p = p.substring(1);
 			}
 
-			cChoice = cpu.makePrediction(p);
 			cpu.addPattern(p);
 
 			didPWin = determineOutcome(pChoice, cChoice);
@@ -111,6 +113,38 @@ public class PokemonRPS{
 				return "Grass";
 			default:
 				return "Error";
+		}
+	}
+
+	public static void save(Computer c){
+		File f = "Computer.dat";
+
+		try{
+			if(f.exists()){
+				ObjectOutputStream writer = new ObjectOutputStream(
+					new File(f));
+				writer.writeObject(c);
+				writer.close();
+			}
+		}
+		catch(IOException e){
+			System.out.println("Error writing to file");
+		}
+	}
+
+	public static Computer load(){
+		File f = "Computer.dat";
+
+		try{
+			if(f.exists()){
+				ObjectInputStream writer = new ObjectInputStream(
+					new File(f));
+				writer.writeObject(c);
+				writer.close();
+			}
+		}
+		catch(IOException e){
+			System.out.println("Error writing to file");
 		}
 	}
 }
