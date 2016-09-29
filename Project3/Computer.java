@@ -1,25 +1,40 @@
+import java.util.*;
+
 public class Computer{
 
-	HashMap<Pattern, Integer> map = new HashMap<Pattern, Integer>();
+	private HashMap<Pattern, Integer> map;
 
+	public Computer(){
+		map = new HashMap<Pattern, Integer>();
+	}
 
-	public Pattern addPattern(Pattern p){
-		if(p.length >= 4){
+	public void addPattern(String pString){
+		if(pString.length() == 4){
+			Pattern p = new Pattern(pString);
 			int instances = 1;
 
-			if(map.contains(p)){
+			if(map.containsKey(p)){
 				instances = map.get(p) + 1;
 			}
 
-			map.add(p,instances)
+			map.put(p,instances);
 		}
 	}
 
-	public char makePrediction(String p){
-		int instances[] = {0,0,0}
-		if(p.length < 4 || map.contains(p)){
-			for(i = 0; i < p.length; i++){
-				switch(p[i]){
+	public char makePrediction(String pString){
+		int instances[] = {0,0,0};
+		int choice = 0;
+
+		if(pString.length() < 4){
+			choice = (int)Math.random() * 3;
+		}
+		else{
+			Pattern p = new Pattern(pString);
+			if(!(map.containsKey(p))){
+				choice = (int)Math.random() * 3;
+			}
+			for(int i = 0; i < p.length(); i++){
+				switch(p.toString().charAt(i)){
 					case 'f':
 						instances[0]++;
 						break;
@@ -32,25 +47,24 @@ public class Computer{
 				}
 			}
 
-			int max = 0;
-			for(i = 1; i < instances.length; i++){
-				if(instances[max] < instances[i]){
-					max = i;
+			for(int i = 1; i < instances.length; i++){
+				if(instances[choice] < instances[i]){
+					choice = i;
 				}
 			}
-
-			switch(max){
-				case 0:
-					return 'f';
-					break;
-				case 1:
-					return 'w';
-					break;
-				case 2:
-					return 'g';
-					break;			
-			}
-
 		}
+
+		switch(choice){
+			case 0:
+				return 'w';
+
+			case 1:
+				return 'g';
+
+			case 2:
+				return 'f';	
+		}
+
+		return 'x';
 	}
 }

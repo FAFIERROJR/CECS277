@@ -2,10 +2,16 @@ public class Pattern{
 	private String pattern;
 
 	public Pattern(String p){
-		pattern = p;
+		if(p.length() == 4){
+			pattern = p;
+		}
 	}
 
-	public getPattern(){
+	public int length(){
+		return pattern.length();
+	}
+
+	public String toString(){
 		return pattern;
 	}
 
@@ -19,5 +25,6 @@ public class Pattern{
 		if(o instanceof String){
 			return pattern.equals((String) o);
 		}
+		return false;
 	}
 }
