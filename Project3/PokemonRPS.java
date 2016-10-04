@@ -23,6 +23,10 @@ public class PokemonRPS{
 				difficulty = 1;
 			}
 
+            System.out.println("Choose a difficulty\n1. Normal\n2. Hard");
+            difficulty = CheckInput.checkIntRange(1,2) - 1;
+            System.out.println(difficulty);
+
 		}
 		
 		Computer cpu = new Computer(difficulty);
@@ -170,6 +174,6 @@ public class PokemonRPS{
 	}
 
 	public static void loadMenu(){
-		System.out.print("Game save found\n1. Continue\n2. New Game");
+		System.out.println("Game save found\n1. Use Saved Computer\n2. New Game");
 	}
 }
