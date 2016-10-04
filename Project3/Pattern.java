@@ -4,9 +4,7 @@ public class Pattern implements Serializable{
 	private String pattern;
 
 	public Pattern(String p){
-		if(p.length() == 4){
 			pattern = p;
-		}
 	}
 
 	public int length(){
@@ -24,8 +22,11 @@ public class Pattern implements Serializable{
 
 	@Override
 	public boolean equals(Object o){
-		if(o instanceof String){
+		try{
 			return pattern.equals((String) o);
+		}
+		catch(Exception e){
+			System.out.print("Error comparing patterns");
 		}
 		return false;
 	}

@@ -1,3 +1,6 @@
+import java.util.*;
+import java.io.*;
+
 public class PokemonRPS{
 	public static void main(String args[]){
 		int pWins = 0;
@@ -7,8 +10,22 @@ public class PokemonRPS{
 		char pChoice;
 		char cChoice;
 		int didPWin = 0;
-		Computer cpu = new Computer();
 		String p = "";
+		int difficulty = 0;
+
+		File f = new File("Computer.dat");
+
+		if(f.exists()){
+			int lChoice;
+			loadMenu();
+			lChoice = CheckInput.checkIntRange(1,2);
+			if(lChoice == 1){
+				difficulty = 1;
+			}
+
+		}
+		
+		Computer cpu = new Computer(difficulty);
 
 		System.out.println("Welcome to Pokemon: Rock, Paper, Scissors");
 		do{
@@ -29,6 +46,7 @@ public class PokemonRPS{
 					break;
 				case 3:
 					System.out.println("Thanks for playing!");
+					save(cpu);
 					System.exit(0);
 				default:
 					pChoice = 'x';
@@ -36,7 +54,7 @@ public class PokemonRPS{
 
 			p = p + pChoice;
 
-			if(p.length() == 5){
+			if(p.length() == 21){
 				p = p.substring(1);
 			}
 
@@ -112,20 +130,18 @@ public class PokemonRPS{
 			case 'g':
 				return "Grass";
 			default:
-				return "Error";
+				return "";
 		}
 	}
 
 	public static void save(Computer c){
-		File f = "Computer.dat";
+		File f = new File("Computer.dat");
 
 		try{
-			if(f.exists()){
-				ObjectOutputStream writer = new ObjectOutputStream(
-					new File(f));
-				writer.writeObject(c);
-				writer.close();
-			}
+			ObjectOutputStream writer = new ObjectOutputStream(
+				new FileOutputStream(f));
+			writer.writeObject(c);
+			writer.close();
 		}
 		catch(IOException e){
 			System.out.println("Error writing to file");
@@ -133,18 +149,27 @@ public class PokemonRPS{
 	}
 
 	public static Computer load(){
-		File f = "Computer.dat";
-
+		File f = new File("Computer.dat");
+		Computer c = new Computer(0);
 		try{
 			if(f.exists()){
-				ObjectInputStream writer = new ObjectInputStream(
-					new File(f));
-				writer.writeObject(c);
-				writer.close();
+				ObjectInputStream reader = new ObjectInputStream(
+					new FileInputStream(f));
+				c = (Computer) reader.readObject();
+				reader.close();
 			}
 		}
 		catch(IOException e){
-			System.out.println("Error writing to file");
+			System.out.println("Error reading file");
 		}
+		catch(ClassNotFoundException e){
+			System.out.print("Class mismatch when reading from file");
+		}
+
+		return c;
+	}
+
+	public static void loadMenu(){
+		System.out.print("Game save found\n1. Continue\n2. New Game");
 	}
 }
