@@ -38,10 +38,6 @@ public class Computer implements Serializable{
 				}
 				if(counter == 1 && p.length() > 4){
 					p = p.substring(p.length() - 5);
-					counter++;
-				}
-				if(counter == 1 && p.length() > 7){
-					p = p.substring(p.length() - 8);
 					counter = 0;
 				}
                 System.out.println("P length = " + p.length());
@@ -128,7 +124,7 @@ public class Computer implements Serializable{
                         }
                     }
 
-                    int sub = 3;
+                   /* int sub = 3;
                     switch(counter){
                         case 0:
                             if(pString.length() > 7){
@@ -142,30 +138,36 @@ public class Computer implements Serializable{
                             if(pString.length() > 4){
                                 sub = 4;
                             }
-                            break;
-                    }
+                            break; 
+                    } */
                     
-                    for(int i = pString.length() - sub; i < pString.length(); i++){
-                        System.out.print(pString.charAt(i));
-                        switch(pString.charAt(i)){
-                            case 'f':
-                                instances[0]++;
-                                break;
-                            case 'w':
-                                instances[1]++;
-                                break;
-                            case 'g':
-                                instances[2]++;
-                                break;
+                    if(pString.length() > 4){
+                    int sub = 5;
+                        for(int j = 0; j < 2; j ++){ 
+                            for(int i = pString.length() - sub; i < pString.length(); i++){
+                                System.out.print(pString.charAt(i));
+                                switch(pString.charAt(i)){
+                                    case 'f':
+                                        instances[0]++;
+                                        break;
+                                    case 'w':
+                                        instances[1]++;
+                                        break;
+                                    case 'g':
+                                        instances[2]++;
+                                        break;
+                                }
+                            }
+
                         }
-                    }
 
-                    System.out.println("instances " + instances [0] +  " " + 
-                        instances[1] + " " + instances[2]);
+                        System.out.println("instances " + instances [0] +  " " + 
+                            instances[1] + " " + instances[2]);
 
-                    for(int i = 1; i < instances.length; i++){
-                        if(instances[choice] < instances[i]){
-                            choice = i;
+                        for(int i = 1; i < instances.length; i++){
+                            if(instances[choice] < instances[i]){
+                                choice = i;
+                            }
                         }
                     }
 				    break;
