@@ -7,21 +7,18 @@ public class Computer implements Serializable{
 
 	private int difficulty;
 
-    private int counter;
-
 	public Computer(int d){
 		map = new HashMap<Pattern, Integer>();
 		difficulty = d;
-        counter = 0;
 	}
 
 	public void addPattern(String pIn){
         String p = pIn;
-        System.out.println("p.length = " + p.length());
 		switch(difficulty){
 			case 0:
 					if(p.length() > 3){
 						p = p.substring(p.length() - 4);
+						System.out.println(p);
 						Pattern pat = new Pattern(p);
 						int instances = 1;
 
@@ -32,26 +29,28 @@ public class Computer implements Serializable{
 					}
 				break;
 			case 1:
-				if(counter == 0 && p.length() > 2){
-					p = p.substring(p.length() - 3);
-					counter++;
-				}
-				if(counter == 1 && p.length() > 4){
-					p = p.substring(p.length() - 5);
-					counter = 0;
-				}
-                System.out.println("P length = " + p.length());
+				Pattern p1 = null;
+				Pattern p2 = null;
+
 				if(p.length() > 2){
-					Pattern pat = new Pattern(p);
+					p1 =  new Pattern(p.substring(p.length() - 3));
+				}
+				if(p.length() > 4){
+					p2 = new Pattern(p.substring(p.length() - 5));
+				}
+				if(p.length() > 2){
 					int instances = 1;
-                    System.out.println(pat.toString());
-
-
-					if(map.containsKey(pat)){
-						instances = map.get(pat) + 1;
+					if(map.containsKey(p1)){
+						instances = map.get(p1) + 1;
 					}
-                    System.out.println("Adding to map");
-					map.put(pat,instances);
+					map.put(p1,instances);
+				}
+				if(p.length() > 4){
+					int instances = 1;
+					if(map.containsKey(p2)){
+						instances = map.get(p2) + 1;
+					}
+					map.put(p2,instances);
 				}
 				break;
 			default:
@@ -59,134 +58,133 @@ public class Computer implements Serializable{
 		}
 	}
 
-	public char makePrediction(String pString){
+	public char makePrediction(String pIn){
 		int choice = 0;
         int instances[] = {0,0,0};
+        Pattern p[] = new Pattern[3];
+
+        System.out.println(pIn.length());
 
 		switch(difficulty){
 			case 0:
-				if(pString.length() < 4){
-					choice = (int)(Math.random() * 3);
-				}
-				else{
-					Pattern p = new Pattern(pString);
-					if(!(map.containsKey(p))){
-						choice = (int)Math.random() * 3;
-					}
-					for(int i = 0; i < p.length(); i++){
-						switch(p.toString().charAt(i)){
-							case 'f':
-								instances[0]++;
-								break;
-							case 'w':
-								instances[1]++;
-								break;
-							case 'g':
-								instances[2]++;
-								break;
+				choice = (int)(Math.random() * 3);
+				
+				if(pIn.length() > 3){
+					p[0] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'f');
+					System.out.println(p[0].toString());
+					p[1] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'w');
+					System.out.println(p[1].toString());
+					p[2] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'g');
+
+					for(int i = 0; i < 3; i++){
+						if(map.containsKey(p[i])){
+							instances[i] = map.get(p[i]);
 						}
 					}
 
+					int temp = 0;
+					System.out.println(instances[0]);
 					for(int i = 1; i < instances.length; i++){
-						if(instances[choice] < instances[i]){
-							choice = i;
+						System.out.println(instances[i]);
+						if(instances[i-1] < instances[i]){
+							temp = i;
 						}
 					}
+					choice = temp;
+					System.out.println(choice);
 				}
+
 				break;
-				case 1:
-                    Pattern pat = null;
-                    if(map.isEmpty()){
-                        choice =(int)(Math.random() * 3);
-                        System.out.println("Random Choice");
-                        break;
-                    }
-                    else{
-                        int max = 0;
-                        for(HashMap.Entry<Pattern, Integer> entry : map.entrySet()){
-                            if(max < entry.getValue()){
-                                pat = entry.getKey();
-                                max = entry.getValue();
-                            }
+							
+			case 1:
+                Pattern p1[] = new Pattern[3];
+                Pattern p2[] = new Pattern[3];
+                int i1[] = new int[3];
+                int i2[] = new int[3];
+                int choice1 = 0;
+                int choice2 = 0;
+                int max1;
+                int max2;
+
+                choice1 =(int)(Math.random() * 3);
+                choice2 =(int)(Math.random() * 3);
+                       
+              	if(pIn.length() > 2){
+              		p1[0] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'f');
+					p1[1] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'w');
+					p1[2] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'g');
+
+                    for(int i = 0; i < 2; i++){
+                        if(map.containsKey(p1[i])){
+                        	i1[i] = map.get(p1[i]);
                         }
                     }
-                    for(int i = 0; i < pat.length(); i++){
-                        switch(pat.toString().charAt(i)){
-                            case 'f':
-                                instances[0]++;
-                                break;
-                            case 'w':
-                                instances[1]++;
-                                break;
-                            case 'g':
-                                instances[2]++;
-                                break;
+
+                   	int temp1 = 0;
+	                for(int i = 1; i < i1.length; i++){
+							if(i1[i - 1] < i1[i]){
+								temp1 = i;
+							}
+					}
+					choice1 = temp1;
+
+                }
+
+
+                if(pIn.length() > 4){
+              		p2[0] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'f');
+					p2[1] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'w');
+					p2[2] = new Pattern(pIn.substring(
+						pIn.length() - 3, pIn.length()) + 'g');
+
+                    for(int i = 0; i < 2; i++){
+                        if(map.containsKey(p2[i])){
+                        	i2[i] = map.get(p2[i]);
                         }
                     }
 
-                   /* int sub = 3;
-                    switch(counter){
-                        case 0:
-                            if(pString.length() > 7){
-                                sub = 8;
-                            }
-                            break;
-                        case 1:
-                            sub = 3;
-                            break;
-                        case 2:
-                            if(pString.length() > 4){
-                                sub = 4;
-                            }
-                            break; 
-                    } */
-                    
-                    if(pString.length() > 4){
-                    int sub = 5;
-                        for(int j = 0; j < 2; j ++){ 
-                            for(int i = pString.length() - sub; i < pString.length(); i++){
-                                System.out.print(pString.charAt(i));
-                                switch(pString.charAt(i)){
-                                    case 'f':
-                                        instances[0]++;
-                                        break;
-                                    case 'w':
-                                        instances[1]++;
-                                        break;
-                                    case 'g':
-                                        instances[2]++;
-                                        break;
-                                }
-                            }
 
-                        }
+                    int temp2 = 0;
+                    for(int i = 1; i < i2.length; i++){
+						if(i2[i-1] < i2[i]){
+							temp2 = i;
+						}
+					}
+					choice2 = temp2;
 
-                        System.out.println("instances " + instances [0] +  " " + 
-                            instances[1] + " " + instances[2]);
+					System.out.println(choice1 + " " + choice2);
+					if(choice1 == choice2){
+						choice = choice1;
+					}
+					else if(i2[choice2] >= i1[choice1]){
+						choice = choice2;
+					}
+					else{
+						choice = choice1;
+					}
+                	break;
+			}
 
-                        for(int i = 1; i < instances.length; i++){
-                            if(instances[choice] < instances[i]){
-                                choice = i;
-                            }
-                        }
-                    }
-				    break;
-
-				default:
-				    break;
 		}
 
 		switch(choice){
-			case 0:
-				return 'w';
+				case 0:
+					return 'w';
 
-			case 1:
-				return 'g';
+				case 1:
+					return 'g';
 
-			case 2:
-				return 'f';	
+				case 2:
+					return 'f';	
 		}
-
 		return 'x';
 	}
 }

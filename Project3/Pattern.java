@@ -22,12 +22,8 @@ public class Pattern implements Serializable{
 
 	@Override
 	public boolean equals(Object o){
-		try{
-			return pattern.equals(((Pattern )o).toString());
-		}
-		catch(Exception e){
-            e.printStackTrace();
-			System.out.print("Error comparing patterns");
+		if(o instanceof Pattern){
+			return pattern.equals(((Pattern )o).pattern);
 		}
 		return false;
 	}

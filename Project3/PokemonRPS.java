@@ -5,31 +5,35 @@ public class PokemonRPS{
 	public static void main(String args[]){
 		int pWins = 0;
 		int cWins = 0;
-		int rounds = 0;
+		int rounds = 1;
 		int pInput;
 		char pChoice;
 		char cChoice;
 		int didPWin = 0;
 		String p = "";
 		int difficulty = 0;
-
+        Computer cpu;
+        int lChoice = 0;
 		File f = new File("Computer.dat");
 
 		if(f.exists()){
-			int lChoice;
 			loadMenu();
 			lChoice = CheckInput.checkIntRange(1,2);
 			if(lChoice == 1){
-				difficulty = 1;
+				cpu = load();
 			}
-
+            else{
+                System.out.println("Choose a difficulty\n1. Normal\n2. Hard");
+                difficulty = CheckInput.checkIntRange(1,2) - 1;
+                cpu = new Computer(difficulty);
+            }
+        }
+        else{
             System.out.println("Choose a difficulty\n1. Normal\n2. Hard");
             difficulty = CheckInput.checkIntRange(1,2) - 1;
-            System.out.println(difficulty);
-
-		}
+            cpu = new Computer(difficulty);
+        }
 		
-		Computer cpu = new Computer(difficulty);
 
 		System.out.println("Welcome to Pokemon: Rock, Paper, Scissors");
 		do{
@@ -49,8 +53,12 @@ public class PokemonRPS{
 					pChoice = 'g';
 					break;
 				case 3:
+					System.out.println("Would you like to save?\n1. Yes\n2. No");
+					int saveChoice = CheckInput.checkIntRange(1,2);
+					if(saveChoice == 1){
+						save(cpu);
+					}
 					System.out.println("Thanks for playing!");
-					save(cpu);
 					System.exit(0);
 				default:
 					pChoice = 'x';
@@ -120,9 +128,9 @@ public class PokemonRPS{
 			System.out.println("Draw!");
 		}
 		System.out.print("\nPlayer Wins: " + pWins + " Player Win %: "  +
-			((double)pWins / rounds));
+			(int)(pWins * 100 / rounds ));
 		System.out.print(" CPU Wins: " + cWins
-			+ " CPU Win %: " + ((double)cWins/rounds) +"\n");
+			+ " CPU Win %: " + (int)(cWins * 100/rounds) +"\n");
 	}
 
 	public static String translateChoice(char choice){
