@@ -1,6 +1,13 @@
 import java.util.*;
 import java.io.*;
 
+/**
+ * PokemonRPS
+ * the main class for Pokemon Rock, Paper, Scissors
+ *
+ * @author Francisco FierroS
+ */
+
 public class PokemonRPS{
 	public static void main(String args[]){
 		int pWins = 0;
@@ -94,6 +101,11 @@ public class PokemonRPS{
 
 	}
 
+    /**
+     * displayMenu()
+     * displays menu for player choices
+     * 
+     */
 	public static void displayMenu(){
 		System.out.println("1. Fire\n2. Water\n3. Grass\n4. Quit");
 	}
@@ -114,6 +126,16 @@ public class PokemonRPS{
 		return -1;
 	}
 
+    /**
+     * displayOutcome()
+     * displays outcome readout
+     * @param pChoice char representing player choice
+     * @param cChoice char representing cpu choice
+     * @param didPWin integer representing win/loss/draw
+     * @param pWins   number of player wins
+     * @param cWins   number of computer wins
+     * @param rounds  number of decisive rounds
+     */
 	public static void displayOutcome(char pChoice, char cChoice, int didPWin, int pWins,
 	int cWins, int rounds){
 		System.out.println("You chose  " + translateChoice(pChoice));
@@ -133,6 +155,15 @@ public class PokemonRPS{
 			+ " CPU Win %: " + (int)(cWins * 100/rounds) +"\n");
 	}
 
+
+    /**
+     * translateChoice()
+     * translates a player/cpu choice from char to string
+     * containing the corresponding word
+     * 
+     * @param  choice char representing cpu/player choice
+     * @return        corresponding word: Fire, Water, Grass
+     */
 	public static String translateChoice(char choice){
 		switch(choice){
 			case 'f':
@@ -146,6 +177,12 @@ public class PokemonRPS{
 		}
 	}
 
+    /**
+     * save
+     * saves the computer object to file
+     * 
+     * @param c the computer object
+     */
 	public static void save(Computer c){
 		File f = new File("Computer.dat");
 
@@ -158,8 +195,13 @@ public class PokemonRPS{
 		catch(IOException e){
 			System.out.println("Error writing to file");
 		}
-	}
 
+
+    /**
+     * load()
+     * loads computer object from file
+     * @return the loaded computer object
+     */
 	public static Computer load(){
 		File f = new File("Computer.dat");
 		Computer c = new Computer(0);
@@ -181,6 +223,10 @@ public class PokemonRPS{
 		return c;
 	}
 
+    /**
+     * loadMenu()
+     * displays menu for loading saved computer
+     */
 	public static void loadMenu(){
 		System.out.println("Game save found\n1. Use Saved Computer\n2. New Game");
 	}

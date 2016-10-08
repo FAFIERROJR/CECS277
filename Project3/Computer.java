@@ -1,17 +1,41 @@
 import java.io.*;
 import java.util.*;
 
+/**
+ * Computer.java
+ * handles pattern storage and prediction
+ * 
+ * @author Francisco Fierro
+ */
 public class Computer implements Serializable{
-
+	/** Hashmap for storing patterns */
 	private HashMap<Pattern, Integer> map;
 
+	/** Computers difficulty level */
 	private int difficulty;
 
+
+	/**
+	 * Computer()
+	 * Constructor for Computer object
+	 * creates new Hashmap
+	 * sets difficulty
+	 * 
+	 * @param  d the difficutly level
+	 * 
+	 */
 	public Computer(int d){
 		map = new HashMap<Pattern, Integer>();
 		difficulty = d;
 	}
 
+	/**
+	 * addPattern()
+	 * adds a pattern to the hashmap
+	 * difficulty determines size of patterns
+	 * 
+	 * @param pIn The latest pattern as a string
+	 */
 	public void addPattern(String pIn){
         String p = pIn;
 		switch(difficulty){
@@ -44,6 +68,7 @@ public class Computer implements Serializable{
 						instances = map.get(p1) + 1;
 					}
 					map.put(p1,instances);
+					System.out.println(map.get(p1));
 				}
 				if(p.length() > 4){
 					int instances = 1;
@@ -51,6 +76,8 @@ public class Computer implements Serializable{
 						instances = map.get(p2) + 1;
 					}
 					map.put(p2,instances);
+					System.out.println(map.get(p2));
+
 				}
 				break;
 			default:
@@ -58,6 +85,15 @@ public class Computer implements Serializable{
 		}
 	}
 
+	/**
+	 * makePrediction()
+	 * predicts user choice according to
+	 * pattern history, which is tracked by the
+	 * hashmap
+	 * 
+	 * @param  pIn 
+	 * @return     [description]
+	 */
 	public char makePrediction(String pIn){
 		int choice = 0;
         int instances[] = {0,0,0};
@@ -102,8 +138,8 @@ public class Computer implements Serializable{
 			case 1:
                 Pattern p1[] = new Pattern[3];
                 Pattern p2[] = new Pattern[3];
-                int i1[] = new int[3];
-                int i2[] = new int[3];
+                int i1[] = {0,0,0};
+                int i2[] = {0,0,0};
                 int choice1 = 0;
                 int choice2 = 0;
                 int max1;
@@ -111,19 +147,23 @@ public class Computer implements Serializable{
 
                 choice1 =(int)(Math.random() * 3);
                 choice2 =(int)(Math.random() * 3);
-                       
+
+
+                System.out.println(pIn);       
               	if(pIn.length() > 2){
               		p1[0] = new Pattern(pIn.substring(
-						pIn.length() - 3, pIn.length()) + 'f');
+						pIn.length() - 2, pIn.length()) + 'f');
 					p1[1] = new Pattern(pIn.substring(
-						pIn.length() - 3, pIn.length()) + 'w');
+						pIn.length() - 2, pIn.length()) + 'w');
 					p1[2] = new Pattern(pIn.substring(
-						pIn.length() - 3, pIn.length()) + 'g');
+						pIn.length() - 2, pIn.length()) + 'g');
 
-                    for(int i = 0; i < 2; i++){
+                    for(int i = 0; i < 3; i++){
                         if(map.containsKey(p1[i])){
                         	i1[i] = map.get(p1[i]);
+                        	System.out.println(i1[i]);
                         }
+                        System.out.println("i1" + i1[i]);
                     }
 
                    	int temp1 = 0;
@@ -132,23 +172,28 @@ public class Computer implements Serializable{
 								temp1 = i;
 							}
 					}
-					choice1 = temp1;
+					System.out.println("temp1 = " + temp1);
 
+					if(i1[temp1] > 0){
+						choice1 = temp1;
+					}
                 }
 
 
                 if(pIn.length() > 4){
               		p2[0] = new Pattern(pIn.substring(
-						pIn.length() - 3, pIn.length()) + 'f');
+						pIn.length() - 4, pIn.length()) + 'f');
 					p2[1] = new Pattern(pIn.substring(
-						pIn.length() - 3, pIn.length()) + 'w');
+						pIn.length() - 4, pIn.length()) + 'w');
 					p2[2] = new Pattern(pIn.substring(
-						pIn.length() - 3, pIn.length()) + 'g');
+						pIn.length() - 4, pIn.length()) + 'g');
 
-                    for(int i = 0; i < 2; i++){
+                    for(int i = 0; i < 3; i++){
                         if(map.containsKey(p2[i])){
                         	i2[i] = map.get(p2[i]);
+                        	System.out.println(i2[i]);
                         }
+                        System.out.println("i2" + i2[i]);
                     }
 
 
@@ -158,13 +203,17 @@ public class Computer implements Serializable{
 							temp2 = i;
 						}
 					}
-					choice2 = temp2;
+					System.out.println("temp2 = " + temp2);
+
+					if(i2[temp2] > 1){
+						choice2 = temp2;
+					}
 
 					System.out.println(choice1 + " " + choice2);
 					if(choice1 == choice2){
 						choice = choice1;
 					}
-					else if(i2[choice2] >= i1[choice1]){
+					else if( i2[choice2] /i1[choice1] >= .1){
 						choice = choice2;
 					}
 					else{
