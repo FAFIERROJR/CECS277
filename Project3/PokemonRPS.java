@@ -5,20 +5,19 @@ import java.io.*;
  * PokemonRPS
  * the main class for Pokemon Rock, Paper, Scissors
  *
- * @author Francisco FierroS
+ * @author Francisco Fierro
  */
 
 public class PokemonRPS{
 	public static void main(String args[]){
 		int pWins = 0;
 		int cWins = 0;
-		int rounds = 1;
+		int rounds = 0;
 		int pInput;
 		char pChoice;
 		char cChoice;
 		int didPWin = 0;
 		String p = "";
-		int difficulty = 0;
         Computer cpu;
         int lChoice = 0;
 		File f = new File("Computer.dat");
@@ -30,22 +29,21 @@ public class PokemonRPS{
 				cpu = load();
 			}
             else{
-                System.out.println("Choose a difficulty\n1. Normal\n2. Hard");
-                difficulty = CheckInput.checkIntRange(1,2) - 1;
-                cpu = new Computer(difficulty);
+                cpu = new Computer();
             }
         }
         else{
-            System.out.println("Choose a difficulty\n1. Normal\n2. Hard");
-            difficulty = CheckInput.checkIntRange(1,2) - 1;
-            cpu = new Computer(difficulty);
+            cpu = new Computer();
         }
 		
 
 		System.out.println("Welcome to Pokemon: Rock, Paper, Scissors");
 		do{
 
+            //make a predication
 			cChoice = cpu.makePrediction(p);
+
+            //player chooses
 			displayMenu();
 			pInput = CheckInput.checkIntRange(1,4) - 1;
 
@@ -79,6 +77,7 @@ public class PokemonRPS{
 
 			cpu.addPattern(p);
 
+            //determine and display outcome
 			didPWin = determineOutcome(pChoice, cChoice);
 
 			switch(didPWin){
@@ -138,8 +137,17 @@ public class PokemonRPS{
      */
 	public static void displayOutcome(char pChoice, char cChoice, int didPWin, int pWins,
 	int cWins, int rounds){
+        int pWinper = 0;
+        int cWinper = 0;
+
+        if(rounds != 0){
+            pWinper = 100* pWins / rounds;
+            cWinper = 100 * cWins / rounds;
+        }
+
 		System.out.println("You chose  " + translateChoice(pChoice));
 		System.out.println("CPU chooses " + translateChoice(cChoice));
+
 		if(didPWin == 1){
 			System.out.println("You win!");
 		}
@@ -150,9 +158,9 @@ public class PokemonRPS{
 			System.out.println("Draw!");
 		}
 		System.out.print("\nPlayer Wins: " + pWins + " Player Win %: "  +
-			(int)(pWins * 100 / rounds ));
+			pWinper);
 		System.out.print(" CPU Wins: " + cWins
-			+ " CPU Win %: " + (int)(cWins * 100/rounds) +"\n");
+			+ " CPU Win %: " + cWinper +"\n");
 	}
 
 
@@ -195,6 +203,7 @@ public class PokemonRPS{
 		catch(IOException e){
 			System.out.println("Error writing to file");
 		}
+    }
 
 
     /**
@@ -204,7 +213,7 @@ public class PokemonRPS{
      */
 	public static Computer load(){
 		File f = new File("Computer.dat");
-		Computer c = new Computer(0);
+		Computer c = new Computer();
 		try{
 			if(f.exists()){
 				ObjectInputStream reader = new ObjectInputStream(
