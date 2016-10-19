@@ -1,4 +1,6 @@
 import java.util.ArrayList;
+import java.lang.Comparable;
+
 public class Heap<Node implements Comparable>{
 	private ArrayList<Node> heap;
 	public Heap(){
@@ -30,8 +32,7 @@ public class Heap<Node implements Comparable>{
 	public void addNode(Node n){
 		heap.add(null);
 		int index = heap.size()-1;
-		while(index > 0 && getNodeAt(getPLoc(index))
-			.getData()>n.getData()){
+		while(index > 0 && getNodeAt(getPLoc(index)).compareTo(n) > 0){
 			heap.set(index, getNodeAt(getPLoc(index)));
 			index = getPLoc(index);
 		}
