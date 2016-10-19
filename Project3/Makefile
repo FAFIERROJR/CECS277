@@ -5,20 +5,20 @@ MAIN = PokemonRPS
 DATA = Computer.dat
 DOC = *.html *.js *.css
 
-build:
+build: ${SRC}
 	javac ${SRC}
 
-play: ${SRC}
+play: ${OBJ}
 	java PokemonRPS
 
-doc:
+doc: ${SRC}
 	javadoc ${SRC}
 
-zip:
+zip: ${SRC}
 	zip fierrop3.zip ${SRC}
 
 clean:
 	rm -f ${OBJ} ${DATA} ${DOC}
 
 .PHONY:
-	build play clean
+	build play clean doc zip
