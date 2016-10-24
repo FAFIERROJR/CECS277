@@ -1,10 +1,10 @@
 import java.util.ArrayList;
 import java.lang.Comparable;
 
-public class Heap<Node implements Comparable>{
-	private ArrayList<Node> heap;
+public class Heap<T implements Comparable>{
+	private ArrayList<T> heap;
 	public Heap(){
-		heap = new ArrayList<Node>();
+		heap = new ArrayList<T>();
 	}
 	public int getSize(){
 		return heap.size();
@@ -21,7 +21,7 @@ public class Heap<Node implements Comparable>{
 	public int getRCLoc(int i){
 		return 2*i+2;
 	}
-	public Node getNodeAt(int i){
+	public T getAt(int i){
 		if(heap.get(i)==null){
 			System. out .println("Item does not exist.");
 			return null;
@@ -29,33 +29,33 @@ public class Heap<Node implements Comparable>{
 		return heap.get(i);
 	}
 
-	public void addNode(Node n){
+	public void add(T n){
 		heap.add(null);
 		int index = heap.size()-1;
-		while(index > 0 && getNodeAt(getPLoc(index)).compareTo(n) > 0){
-			heap.set(index, getNodeAt(getPLoc(index)));
+		while(index > 0 && getTAt(getPLoc(index)).compareTo(n) > 0){
+			heap.set(index, getTAt(getPLoc(index)));
 			index = getPLoc(index);
 		}
 		heap.set(index, n);
 	}
-	public Node removeMin(){
-		Node min = heap.get(0);
+	public T removeMin(){
+		T min = heap.get(0);
 		int index = heap.size()-1;
-		Node last = heap.remove(index);
+		T last = heap.remove(index);
 		if(index > 0){
 			heap.set(0, last);
-			Node root = heap.get(0);
+			T root = heap.get(0);
 			int end = heap.size()-1;
 			index = 0;
 			boolean done = false;
 			while(!done){
 				if(getLCLoc(index)<=end){//left exists
-					Node child = getNodeAt(getLCLoc(
+					T child = getTAt(getLCLoc(
 						index));
 					int childLoc = getLCLoc(index);
 					if(getRCLoc(index)<=end){//rt exists
-						if(getNodeAt(getRCLoc(index)).compareTo(child) < 0){
-							child = getNodeAt(getRCLoc(index));
+						if(getTAt(getRCLoc(index)).compareTo(child) < 0){
+							child = getTAt(getRCLoc(index));
 							childLoc = getRCLoc(index);
 						}
 					}
