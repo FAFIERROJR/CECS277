@@ -80,7 +80,7 @@ public class Heap<T extends Comparable<T>>{
 
 	public void printHeap(){
 		for(int i = 0; i < heap.size(); i++){
-			System.out.println(heap.get(i).toString());
+			System.out.println(heap.get(i));
 			System.out.println("");
 		}
 		System.out.println("");

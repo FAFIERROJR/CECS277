@@ -23,7 +23,7 @@ public class Song implements Comparable<Song>{
 
 	public String toString(){
 		return title +"\n" + artist + "\n"
-			+ album + "\n" + rating;
+			+ album + "\n" + rating + " stars";
 	}
 	
 }

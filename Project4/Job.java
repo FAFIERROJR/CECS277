@@ -35,6 +35,6 @@ public class Job implements Comparable<Job>{
 
 	public String toString(){
 		return taskName + "\nDue Date: " + month + "/" + day + "/" + year + " " +
-			hour + ":" + minute;
+			hour + ":" + String.format("%02d", minute);
 	}
 }

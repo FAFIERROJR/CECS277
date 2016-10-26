@@ -63,7 +63,6 @@ public class TaskList{
 				catch(Exception e){
 					System.out.println("Error reading int from file");
 				}
-				in.close();
 				Job job = new Job(jobInfo[0], date[0], date[1], date[2],
 					date[3], date[4]);
 				h.add(job);
