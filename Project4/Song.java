@@ -1,6 +1,6 @@
 import java.lang.Comparable;
 
-public class Song implements Comparable{
+public class Song implements Comparable<Song>{
 	private String title;
 	private String artist;
 	private String album;
@@ -13,11 +13,12 @@ public class Song implements Comparable{
 		rating = r;
 	}
 
+	@Override
 	public int compareTo(Song s){
 		if(rating == s.rating){
 			return title.compareTo(s.title);
 		}
-		return rating - s.rating;
+		return s.rating - rating;
 	}
 
 	public String toString(){
