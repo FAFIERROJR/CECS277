@@ -1,4 +1,4 @@
-import java.lang.Comparable
+import java.lang.Comparable;
 
 public class Job implements Comparable<Job>{
 	private String taskName;
@@ -8,20 +8,20 @@ public class Job implements Comparable<Job>{
 	private int hour;
 	private int minute;
 
-	public Job(String t, int m, int d, int y, int h, int m),{
+	public Job(String t, int mon, int d, int y, int h, int min){
 		taskName = t;
-		month = m;
+		month = mon;
 		day = d;
 		year = y;
 		hour = h;
-		minute = m;
+		minute = min;
 	}
 
-	public compareTo(Job j){
-		if(year == year){
-			if(month = month){
-				if(day == day){
-					if(hour == hour){
+	public int compareTo(Job j){
+		if(year == j.year){
+			if(month == j.month){
+				if(day == j.day){
+					if(hour == j.hour){
 						return minute - j.minute;
 					}
 					return hour - j.hour;
