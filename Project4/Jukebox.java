@@ -1,7 +1,18 @@
 import java.util.*;
 import java.io.*;
 
+/**
+ * Jukebox
+ * plays songs by order of highest rating first
+ *
+ * @author Francisco Fierro
+ */
 public class Jukebox{
+    /**
+     * main()
+     * handles Jukebox features
+     * @param args not used
+     */
 	public static void main(String[] args){
 		Heap<Song> heap = new Heap<Song>();
 		int menuChoice;
@@ -14,23 +25,44 @@ public class Jukebox{
 
 			switch(menuChoice){
 				case 1:
-                    System.out.println("");
-					heap.printHeap();
+                    if(!heap.isEmpty()){
+                        System.out.println("");
+                        heap.printHeap();
+                    }
+                    else{
+                        System.out.println("No songs in queue");
+                    }
 					break;
 				case 2:
-                    System.out.println("");
-					System.out.println(heap.getAt(0).toString());
-                    System.out.println("");
+                    if(!heap.isEmpty()){
+                        System.out.println("");
+                        System.out.println(heap.getAt(0).toString());
+                        System.out.println("");
+                    }
+                    else{
+                        System.out.println("No songs in queue");
+                    }
 					break;
 				case 3:
 					newSong(heap);
 					break;
 				case 4:
 					heap.removeMin();
-					System.out.println(heap.getAt(0).toString());
+                    if(!heap.isEmpty()){
+                        System.out.println("");
+                        System.out.println(heap.getAt(0).toString());
+                    }
+                    else{
+                        System.out.println("No songs in queue");
+                    }
 					break;
 				case 5:
-					reRate(heap);
+                    if(!heap.isEmpty()){
+					   reRate(heap);
+                    }
+                    else{
+                        System.out.println("No songs in queue");
+                    }
 					break;
 				case 6:
 					System.out.println("Goodbye");
@@ -43,6 +75,11 @@ public class Jukebox{
 
 	}
 
+    /**
+     * load()
+     * reads songs from file into heap
+     * @param h the heap
+     */
 	public static void load(Heap<Song> h){
 		try{
 			Scanner in = new Scanner(new File("songs.txt"));
@@ -66,12 +103,21 @@ public class Jukebox{
 		}
 	}
 
+    /**
+     * displayMenu()
+     * displays Jukebox options
+     */
 	public static void displayMenu(){
         System.out.println("");
 		System.out.println("1. List songs\n2. Current song\n3. Add song\n4. Play next\n5. Rate current song\n6. Quit");
 	}
 
 
+    /**
+     * promps user for new song info
+     * adds song to heap
+     * @param h the heap
+     */
 	public static void newSong(Heap<Song> h){
 		String title = "";
 		String artist = "";
@@ -82,11 +128,11 @@ public class Jukebox{
 		try{
             System.out.println("");
 			System.out.println("Enter song title:");
-			title = in.next();
+			title = in.nextLine();
 			System.out.println("Enter artist name:");
-			artist = in.next();
+			artist = in.nextLine();
 			System.out.println("Enter album name:");
-			album = in.next();
+			album = in.nextLine();
 			System.out.println("Enter rating");
 			rating = CheckInput.checkIntRange(1,5);
             System.out.println("");
@@ -100,6 +146,12 @@ public class Jukebox{
 
 	}
 
+    /**
+     * reRate
+     * allows user to re rate current song
+     * re adds to heap
+     * @param h the heap
+     */
 	public static void reRate(Heap<Song> h){
 		String[] songInfo = h.getAt(0).toString().split("\n");
 		int rating;

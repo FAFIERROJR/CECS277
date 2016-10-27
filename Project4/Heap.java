@@ -1,27 +1,75 @@
 import java.util.ArrayList;
 import java.lang.Comparable;
 
+/**
+ * Heap
+ * custom generic min heap
+ * @author Francisco Fierro
+ */
 public class Heap<T extends Comparable<T>>{
+	/** Arraylist for storing heap elements */
 	private ArrayList<T> heap;
+
+	/**
+	 * Heap()
+	 * basic constructor
+	 */
 	public Heap(){
 		heap = new ArrayList<T>();
 	}
+
+	/**
+	 * getSize()
+	 * @return the heap's size
+	 */
 	public int getSize(){
 		return heap.size();
 	}
+
+	/**
+	 * isEmpty
+	 * @return true if empty, else false
+	 */
 	public boolean isEmpty(){
 		return heap.isEmpty();
 	}
+
+	/**
+	 * getPLoc
+	 * gets index of parent
+	 * @param  i the index of node
+	 * @return   the index of parent node
+	 */
 	public int getPLoc(int i){
 		return (i-1)/2;
 	}
+
+	/**
+	 * getLCLoc()
+	 * gets index of left child
+	 * @param  i index of node
+	 * @return   index of left child
+	 */
 	public int getLCLoc(int i){
 		return 2*i+1;
 	}
+
+	/**
+	 * getRCLoc()
+	 * gets index of right child
+	 * @param  i index of node
+	 * @return   index of right child
+	 */
 	public int getRCLoc(int i){
 		return 2*i+2;
 	}
 
+	/**
+	 * getAt()
+	 * gets node at given index
+	 * @param  i the given index
+	 * @return   the corresponding node
+	 */
 	public T getAt(int i){
 		if(heap.get(i)==null){
 			System. out .println("Item does not exist.");
@@ -31,6 +79,11 @@ public class Heap<T extends Comparable<T>>{
 		}
 	}
 
+	/**
+	 * add()
+	 * adds an element to the heap
+	 * @param n the element to add
+	 */
 	public void add(T n){
 		heap.add(null);
 		int index = heap.size()-1;
@@ -40,6 +93,13 @@ public class Heap<T extends Comparable<T>>{
 		}
 		heap.set(index, n);
 	}
+
+
+	/**
+	 * removeMin()
+	 * removes minimum element from heap
+	 * @return the removed min
+	 */
 	public T removeMin(){
 		if(!isEmpty()){
 			T min = heap.get(0);
@@ -78,6 +138,10 @@ public class Heap<T extends Comparable<T>>{
 		return null;
 	}
 
+	/**
+	 * printHeap()
+	 * prints every element in the heaps
+	 */
 	public void printHeap(){
 		for(int i = 0; i < heap.size(); i++){
 			System.out.println(heap.get(i));

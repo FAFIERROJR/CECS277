@@ -1,7 +1,17 @@
 import java.util.*;
 import java.io.*;
 
+/**
+ * TaskList
+ * handles to do list
+ * @author Francisco Fierro
+ */
 public class TaskList{
+	/**
+	 * main()
+	 * main function for task list
+	 * @param args not used
+	 */
 	public static void main(String[] args){
 		Heap<Job> heap = new Heap<Job>();
 		int menuChoice;
@@ -14,23 +24,44 @@ public class TaskList{
 
 			switch(menuChoice){
 				case 1:
-                    System.out.println("");
-					heap.printHeap();
+                    if(!heap.isEmpty()){
+                        System.out.println("");
+                        heap.printHeap();
+                    }
+                    else{
+                        System.out.println("All tasks complete");
+                    }
 					break;
 				case 2:
-                    System.out.println("");
-					System.out.println(heap.getAt(0).toString());
-                    System.out.println("");
+                    if(!heap.isEmpty()){
+                        System.out.println("");
+                        System.out.println(heap.getAt(0).toString());
+                        System.out.println("");
+                    }
+                    else{
+                        System.out.println("All tasks complete");
+                    }
 					break;
 				case 3:
 					newJob(heap);
 					break;
 				case 4:
 					heap.removeMin();
-					System.out.println(heap.getAt(0).toString());
+                    if(!heap.isEmpty()){
+                        System.out.println("");
+                        System.out.println(heap.getAt(0).toString());
+                    }
+                    else{
+                        System.out.println("All tasks complete");
+                    }
 					break;
 				case 5:
-					reRate(heap);
+                    if(!heap.isEmpty()){
+					   postpone(heap);
+                    }
+                    else{
+                        System.out.println("All tasks complete");
+                    }
 					break;
 				case 6:
 					System.out.println("Goodbye");
@@ -43,6 +74,11 @@ public class TaskList{
 
 	}
 
+	/**
+	 * load()
+	 * reads jobs from list into heap
+	 * @param h the heap
+	 */
 	public static void load(Heap<Job> h){
 		try{
 			Scanner in = new Scanner(new File("taskList.txt"));
@@ -73,12 +109,20 @@ public class TaskList{
 		}
 	}
 
+	/**
+	 * displayMenu()
+	 * displays task list options
+	 */
 	public static void displayMenu(){
         System.out.println("");
-		System.out.println("1. List tasks\n2. Current task\n3. Add task\n4. Next task\n5. Postpone current task\n6. Quit");
+		System.out.println("1. List tasks\n2. Current task\n3. Add task\n4. Mark current task as complete\n5. Postpone current task\n6. Quit");
 	}
 
 
+	/**
+	 * newJob()
+	 * @param h the heap
+	 */
 	public static void newJob(Heap<Job> h){
 		String name = "";
 		int month = 0;
@@ -90,7 +134,7 @@ public class TaskList{
 		Scanner in = new Scanner(System.in);
 		try{
             System.out.println("");
-			System.out.println("Enter song title:");
+			System.out.println("Enter task description:");
 			name = in.nextLine();
 			System.out.println("Enter month due");
 			month = CheckInput.checkIntRange(1,12);
@@ -98,7 +142,7 @@ public class TaskList{
 			day = CheckInput.checkIntRange(1,31);
 			System.out.println("Enter year due");
 			year = CheckInput.checkIntRange(2016,2100);
-			System.out.println("Enter hour due (24 hour format");
+			System.out.println("Enter hour due (24 hour format)");
 			hour = CheckInput.checkIntRange(1,24);
 			System.out.println("Enter minute due");
 			min = CheckInput.checkIntRange(0,59);
@@ -113,7 +157,13 @@ public class TaskList{
 
 	}
 
-	public static void reRate(Heap<Job> h){
+	/**
+	 * postpone()
+	 * updates task due date
+	 * reintroduces to heap
+	 * @param h the heap
+	 */
+	public static void postpone(Heap<Job> h){
 		int month = 0;
 		int day = 0;
 		int year = 0;
@@ -128,7 +178,7 @@ public class TaskList{
 		day = CheckInput.checkIntRange(1,31);
 		System.out.println("Enter year due");
 		year = CheckInput.checkIntRange(2016,2100);
-		System.out.println("Enter hour due (24 hour format");
+		System.out.println("Enter hour due (24 hour format)");
 		hour = CheckInput.checkIntRange(1,24);
 		System.out.println("Enter minute due");
 		min = CheckInput.checkIntRange(0,59);

@@ -8,3 +8,15 @@ jukebox:
 tasklist:
 	javac -Xlint ${SRC2}
 	java TaskList
+
+zip:
+	zip Fierro4.zip ${SRC1} ${SRC2}
+
+doc:
+	javadoc ${SRC1} ${SRC2}
+
+clean:
+	rm -f *.class *.html *.css *.js
+
+.PHONY:
+	jukebox tasklist clean
