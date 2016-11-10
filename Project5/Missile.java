@@ -16,16 +16,23 @@ public class Missile{
 		speed = sp;
 		type = t;
 		color = c;
-		active = false;
+		active = true;
 	}
 	
 	public void move(){
-		double dx = end.getX() - location.getX();
-		double dy = end.getY() - location.getY();
-		double r = speed;
-		double magnitude = Math.sqrt(dx * dx + dy * dy);
-		location = new Point((int)(location.getX() + (dx * r / magnitude)),
-				(int)(location.getY() + (dy * r / magnitude)));
+		if(active){
+			double dx = end.getX() - location.getX();
+			double dy = end.getY() - location.getY();
+			double r = speed;
+			double magnitude = Math.sqrt(dx * dx + dy * dy);
+			if(magnitude <= speed){
+				location = new Point((int)end.getX(), (int)end.getY());
+			}
+			else{
+				location = new Point((int)(location.getX() + (dx * r / magnitude)),
+						(int)(location.getY() + (dy * r / magnitude)));
+			}
+		}
 		if(location.getX() == end.getX() && location.getY() == end.getY()){
 			active = false;
 		}

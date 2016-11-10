@@ -11,6 +11,7 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	private ArrayList<Missile> missiles;
 	private ArrayList<Explosion> explosions;
 	Crosshair crosshair;
+	private ArrayList<Integer> missilesToRemove;
 	
 	public Panel(){
 		int height = 600;
@@ -36,6 +37,7 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		missiles = new ArrayList<Missile>();
 		explosions = new ArrayList<Explosion>();
 		crosshair = new Crosshair(new Point(width/2,height/2));
+		missilesToRemove = new ArrayList<Integer>();
 		this.setBackground(Color.BLACK);
 		
 		Thread thread = new Thread(){
@@ -43,7 +45,9 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 				try{
 					while(true){
 						move();
+						boom();
 						detectHits();
+						cleanUp();
 						repaint();
 						Thread.sleep(50);
 						
@@ -69,6 +73,7 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 			}
 		};
 		
+		
 		thread.start();
 		thread1.start();
 	}
@@ -78,14 +83,26 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	public void paintComponent(Graphics g){
 		super.paintComponent(g);
 		for(int i = 0; i < cities.length; i++){
-			cities[i].draw(g);
+			if(cities[i].isActive()){
+				cities[i].draw(g);
+			}
 		}
 		for(int i = 0; i < batteries.length; i++){
-			batteries[i].draw(g);
+			if(batteries[i].getNumMissiles() > 0){
+				batteries[i].draw(g);
+			}
 		}
 		
 		for(Missile m : missiles){
-			m.draw(g);
+			if(m.isActive()){
+				m.draw(g);
+			}
+		}
+		
+		for(Explosion ex: explosions){
+			if(ex.isActive()){
+				ex.draw(g);
+			}
 		}
 		
 		crosshair.draw(g);
@@ -256,18 +273,43 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		for(Missile m:missiles){
 			m.move();
 		}
+		for(Explosion ex: explosions){
+			ex.move();
+		}
+	}
+	
+	public void boom(){
+		for(Missile m: missiles){
+			if(!m.isActive()){
+				explosions.add(new Explosion(
+						new Point((int)m.getLocPoint().getX(), (int)m.getLocPoint().getY())));
+			}
+		}
 	}
 	
 	public void detectHits(){
 		for(Explosion ex : explosions){
-			for(Missile m : missiles){
-				if(ex.contains(m.getLocPoint())){
-					
+			for(int i = 0; i < missiles.size(); i++){
+				if(ex.contains(missiles.get(i).getLocPoint())){
+					missilesToRemove.add(i);
 				}
 			}
 			
 		}
 	}
+	
+	public void cleanUp(){
+		for(Integer i : missilesToRemove){
+			missiles.remove(i);
+		}
+		
+		for(int i = 0; i < explosions.size(); i++){
+			if(!explosions.get(i).isActive()){
+				explosions.remove(i);
+			}
+		}
+	}
+	
 
 	@Override
 	public void keyTyped(KeyEvent e) {

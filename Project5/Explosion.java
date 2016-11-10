@@ -15,7 +15,7 @@ public class Explosion extends Rectangle{
 	
 	public void draw(Graphics g){
 		g.setColor(Color.YELLOW);
-		g.drawOval(x, y, width, height);
+		g.fillOval(x - width/2, y - height/2, width, height);
 		
 	}
 	
@@ -23,6 +23,10 @@ public class Explosion extends Rectangle{
 		if(expanding){
 			height += 5;
 			width += 5;
+		}
+		if(height == 70){
+			expanding = false;
+			active = false;
 		}
 	}
 	
