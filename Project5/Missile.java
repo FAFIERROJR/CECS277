@@ -1,6 +1,6 @@
 import java.awt.*;
 /**
- * Missile
+ * Missile.java
  * represents a missile object in game
  * @author Francisco Fierro
  *
