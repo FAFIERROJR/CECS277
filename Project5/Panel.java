@@ -33,8 +33,10 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	int playerScore;
 	/** the all-time high score **/
 	int highScore;
-	/** if the round has just begun; to avoid superfluous point awarding **/
-	boolean roundBegin;
+	/** has round ended **/
+	boolean roundEnd;
+	/** has any missile been fire this round **/
+	boolean missileFired;
 	
 	/**
 	 * Panel()
@@ -71,7 +73,9 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		explosionsToAdd = new ArrayList<Explosion>();
 		playerScore = 0;
 		highScore = 0;
-		roundBegin = true;
+		roundEnd = false;
+		missileFired = false;
+		
 		
 		highScore = readHighScore();
 		
@@ -82,8 +86,9 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 				try{
 					while(true){
 						move();
-						boom();
+						//boom();
 						detectHits();
+						boom();
 						cleanUp();
 						repaint();
 						if(isEnd()){
@@ -107,6 +112,7 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 							enemyFire();
 							Thread.sleep(1800);
 						}
+						waitForEnd();
 					}
 				}
 				catch(InterruptedException e){
@@ -237,21 +243,29 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	 * handles ending of current round and start of new round
 	 * awards points for surviving cities and missiles
 	 */
-	public void endRound(){
+	public synchronized void endRound() throws InterruptedException{
 		boolean didPlayerWin = false;
+
 		for(int i = 0; i < cities.length; i++){
-			if(!roundBegin && cities[i].isActive()){
+			if(roundEnd && cities[i].isActive()){
 				didPlayerWin = true;
-				playerScore += 1000;
 			}
 		}
-		for(int i = 0; i < batteries.length; i++ ){
-			playerScore += batteries[i].getNumMissiles() * 500;
-		}
-		roundBegin = false;
 		
 		if(!didPlayerWin){
 			playerScore = 0;
+		}
+		else{
+			if(roundEnd){
+				for(int i = 0; i < cities.length; i++){
+					 if(cities[i].isActive()){
+						 playerScore +=  1000;
+					 }
+				}
+				for(int i = 0; i < batteries.length; i++ ){
+					playerScore += batteries[i].getNumMissiles() * 500;
+				}
+			}
 		}
 		int height = 600;
 		int width = 800;
@@ -273,12 +287,14 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		crosshair = new Crosshair(new Point(width/2,height/2));
 		missilesToRemove = new ArrayList<Missile>();
 		explosionsToAdd = new ArrayList<Explosion>();
-		roundBegin = true;
+		roundEnd = false;
+		missileFired = false;
 		
 		if(playerScore > highScore){
 			highScore = playerScore;
 			recordHighScore(highScore);
 		}
+		notify();
 	}
 	
 	/**
@@ -291,6 +307,8 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		Point targetLoc = null;
 		boolean validChoice = false;
 		boolean noValidChoice[] = new boolean[9];
+		missileFired = true;
+		
 		
 		do{
 			chooseTarget = (int)(Math.random() * 9);
@@ -542,18 +560,26 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	public boolean isEnd(){
 		boolean validCities[] = new boolean[6];
 		boolean didPlayerWin = false;
+		
 		for(int i = 0; i < validCities.length; i++){
 			if(cities[i].isActive()){
 				didPlayerWin = true;
 			}
 		}
-		if(!didPlayerWin){
+		if(!didPlayerWin && missileFired){
+			roundEnd = true;
 			return true;
 		}
-		if(missiles.isEmpty()){
+		if(missiles.isEmpty() & missileFired){
+			roundEnd = true;
 			return true;
 		}
 		return false;
+	}
+	
+	public synchronized void waitForEnd() throws InterruptedException{
+		wait();
+		notify();
 	}
 	
 	@Override

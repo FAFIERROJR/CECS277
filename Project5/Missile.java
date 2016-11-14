@@ -20,6 +20,10 @@ public class Missile{
 	private int type;
 	/** true if in playe, else false **/
 	private boolean active;
+	/** amount to move on x axis **/
+	private double moveAmtX;
+	/** amount to move on y axis **/
+	private double moveAmtY;
 	
 	/**
 	 * Missile()
@@ -48,16 +52,16 @@ public class Missile{
 	 */
 	public void move(){
 		if(active){
-			double dx = end.getX() - location.getX();
-			double dy = end.getY() - location.getY();
+			moveAmtX = end.getX() - location.getX();
+			moveAmtY= end.getY() - location.getY();
 			double r = speed;
-			double magnitude = Math.sqrt(dx * dx + dy * dy);
+			double magnitude = Math.sqrt(moveAmtX * moveAmtX + moveAmtY * moveAmtY);
 			if(magnitude <= speed){
 				location = new Point((int)end.getX(), (int)end.getY());
 			}
 			else{
-				location = new Point((int)(location.getX() + (dx * r / magnitude)),
-						(int)(location.getY() + (dy * r / magnitude)));
+				location = new Point((int)(location.getX() + (moveAmtX * r / magnitude)),
+						(int)(location.getY() + (moveAmtY * r / magnitude)));
 			}
 		}
 		if(location.getX() == end.getX() && location.getY() == end.getY()){
@@ -73,7 +77,7 @@ public class Missile{
 	 */
 	public void draw(Graphics g){
 		g.setColor(color);
-		g.fillRect((int)location.getX(), (int)location.getY()
+		g.fillRect((int)location.getX() - 5, (int)location.getY() -5
 				, 10, 10);
 	}
 	
