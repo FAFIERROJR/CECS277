@@ -35,8 +35,10 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	int highScore;
 	/** has round ended **/
 	boolean roundEnd;
-	/** has any missile been fire this round **/
-	boolean missileFired;
+	/** number of missiles to fire**/
+	int missilesFired;
+	/** number of missiles to fire **/
+	int missilesToFire;
 	
 	/**
 	 * Panel()
@@ -74,7 +76,8 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		playerScore = 0;
 		highScore = 0;
 		roundEnd = false;
-		missileFired = false;
+		missilesFired = 0;
+		missilesToFire = 17;
 		
 		
 		highScore = readHighScore();
@@ -84,35 +87,26 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		Thread thread = new Thread(){
 			public void run(){
 				try{
+					int counter = 0;
 					while(true){
 						move();
 						//boom();
+						if(counter == 60 & missilesFired < missilesToFire){
+							enemyFire();
+							counter = 0;
+							missilesFired++;
+						}
+						counter++;
 						detectHits();
 						boom();
 						cleanUp();
 						repaint();
 						if(isEnd()){
 							endRound();
+							counter = 0;
 						}
-						Thread.sleep(40);
+						Thread.sleep(30);
 						
-					}
-				}
-				catch(InterruptedException e){
-					System.out.println("Interrupted");
-				}
-			}
-		};
-		
-		Thread thread1 = new Thread(){
-			public void run(){
-				try{
-					while(true){
-						for(int i = 0; i < 20; i ++){
-							enemyFire();
-							Thread.sleep(1800);
-						}
-						waitForEnd();
 					}
 				}
 				catch(InterruptedException e){
@@ -123,7 +117,6 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		
 		
 		thread.start();
-		thread1.start();
 	}
 	
 	
@@ -243,7 +236,7 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	 * handles ending of current round and start of new round
 	 * awards points for surviving cities and missiles
 	 */
-	public synchronized void endRound() throws InterruptedException{
+	public void endRound(){
 		boolean didPlayerWin = false;
 
 		for(int i = 0; i < cities.length; i++){
@@ -288,13 +281,12 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		missilesToRemove = new ArrayList<Missile>();
 		explosionsToAdd = new ArrayList<Explosion>();
 		roundEnd = false;
-		missileFired = false;
+		missilesFired = 0;
 		
 		if(playerScore > highScore){
 			highScore = playerScore;
 			recordHighScore(highScore);
 		}
-		notify();
 	}
 	
 	/**
@@ -307,9 +299,6 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 		Point targetLoc = null;
 		boolean validChoice = false;
 		boolean noValidChoice[] = new boolean[9];
-		missileFired = true;
-		
-		
 		do{
 			chooseTarget = (int)(Math.random() * 9);
 			validChoice = true;
@@ -466,14 +455,17 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	public void boom(){
 		for(Missile m: missiles){
 			if(!m.isActive()){
-				System.out.println("Adding explosion");
 				explosions.add(new Explosion(
 						new Point((int)m.getLocPoint().getX(), (int)m.getLocPoint().getY())));
 				for(int i = 0; i < cities.length; i ++){
-					cities[i].isHit(m.getLocPoint());
+					if(m.getType() == 0){
+						cities[i].isHit(m.getLocPoint());
+					}
 				}
 				for(int i = 0; i < batteries.length; i ++){
-					batteries[i].isHit(m.getLocPoint());
+					if(m.getType() == 0){
+						batteries[i].isHit(m.getLocPoint());
+					}
 				}
 			}
 		}
@@ -488,7 +480,8 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	public void detectHits(){
 		for(int i = 0; i < explosions.size(); i++){
 			for(int j = 0; j < missiles.size(); j++){
-				if(explosions.get(i).contains(missiles.get(j).getLocPoint())){
+				if(explosions.get(i).contains(missiles.get(j).getLocPoint()) 
+						&& missiles.get(j).getType() == 0){
 					missilesToRemove.add(missiles.get(j));
 					explosionsToAdd.add(new Explosion(missiles.get(j).getLocPoint()));
 				}
@@ -510,9 +503,14 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 			missiles.remove(m);
 		}
 		
+		for(int i = 0; i < missiles.size(); i++){
+			if(!missiles.get(i).isActive()){
+				missiles.remove(i);
+			}
+		}
+		
 		for(int i = 0; i < explosions.size(); i++){
 			if(!explosions.get(i).isActive()){
-				System.out.println("Removing..");
 				explosions.remove(i);
 			}
 		}
@@ -526,7 +524,7 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	public int readHighScore(){
 		int highScore = 0;
 		try{
-			Scanner in = new Scanner(new File("score.text"));
+			Scanner in = new Scanner(new File("score.dat"));
 			highScore = in.nextInt();
 			in.close();
 		}
@@ -543,7 +541,7 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 	 */
 	public void recordHighScore(int score){
 		try{
-			PrintWriter writer = new PrintWriter("score.text");
+			PrintWriter writer = new PrintWriter("score.dat");
 			writer.println(score);
 			writer.close();
 		}
@@ -566,20 +564,15 @@ public class Panel extends JPanel implements MouseListener, MouseMotionListener,
 				didPlayerWin = true;
 			}
 		}
-		if(!didPlayerWin && missileFired){
+		if(!didPlayerWin){
 			roundEnd = true;
 			return true;
 		}
-		if(missiles.isEmpty() & missileFired){
+		if(missiles.isEmpty() & missilesFired == missilesToFire){
 			roundEnd = true;
 			return true;
 		}
 		return false;
-	}
-	
-	public synchronized void waitForEnd() throws InterruptedException{
-		wait();
-		notify();
 	}
 	
 	@Override

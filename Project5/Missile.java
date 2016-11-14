@@ -98,6 +98,14 @@ public class Missile{
 				int)location.getY());
 	}
 	
+	/**
+	 * getType(){
+	 * 
+	 * @return the type of missile; enemy or player
+	 */
+	public int getType(){
+		return type;
+	}
 		
 		
 }

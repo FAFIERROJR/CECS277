@@ -35,6 +35,9 @@ public class Battery extends Rectangle{
 	public void draw(Graphics g){
 		g.setColor(color);
 		g.fillRect(x, y, width, height);
+		g.setFont(new Font("Arial", Font.PLAIN, 16));
+		g.setColor(Color.WHITE);
+		g.drawString(""+ numMissiles, x + width/3, y + height/2);
 	}
 	
 	/**
